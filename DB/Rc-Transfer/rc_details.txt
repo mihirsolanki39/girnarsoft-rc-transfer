@@ -1,0 +1,24 @@
+
+The Happy Pencil
+
+
+7 Primezone Mews, Crouch End,, London, London N8 9JP GB
+
+https://www.youtube.com/watch?v=Snxr2NK40rE
+
+GRANT ALL PRIVILEGES ON dealer_crm.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+
+const CI_VERSION = '3.1.8';
+
+
+innodb_strict_mode=0
+innodb_log_file_size = 512M
+innodb_log_buffer_size = 512M
+innodb_page_size = 64k
+innodb_buffer_pool_size = 512M
+innodb_force_recovery = 4
+
+
+
+dealer_crm

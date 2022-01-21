@@ -1,0 +1,1 @@
+ ALTER TABLE `crm_admin_dealers` CHANGE `loan_bank_limit` `loan_bank_limit` ENUM( '1', '2' ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '1' COMMENT '"1"=>"normal","2"=>"employee"';

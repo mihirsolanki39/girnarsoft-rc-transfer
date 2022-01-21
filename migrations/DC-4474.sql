@@ -1,0 +1,1 @@
+ALTER TABLE `crm_net_payment` ADD `net_amount` VARCHAR(50) NOT NULL AFTER `loan_amount`;

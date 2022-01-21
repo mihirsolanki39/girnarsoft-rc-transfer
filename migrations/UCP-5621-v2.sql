@@ -1,0 +1,2 @@
+ALTER TABLE `crm_finance_delivery` ADD `customer_balance` VARCHAR( 100 ) NOT NULL COMMENT 'for dashboard purpose' AFTER `cancel_id` ;
+ALTER TABLE `crm_finance_delivery` ADD `showroom_balance` VARCHAR( 100 ) NOT NULL COMMENT 'for dashboard purpose' AFTER `customer_balance` ;

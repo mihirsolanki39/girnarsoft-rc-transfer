@@ -1,0 +1,13 @@
+Sahil Chopra5:45 PM
+
+Sprint 1: To be Delivered on 31st Jan
+
+1. Complete Code review and code structure, and code commenting everywhere
+2. Code fixes/ Bug fixing in the complete flow of rc-drive
+3. Rc case addition approaches, through Api and manual lead form.
+4. RC case listing page functionality  changes
+5. Agent case assignment
+
+
+
+Leads assignment

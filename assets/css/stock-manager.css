@@ -1,0 +1,99 @@
+.carname a{color:#000 !important; opacity: .87; font-size: 18px}
+.editprice-box{border-left: 1px solid #ddd;text-align: center; height: 200px}
+.stock-price-n{color:#000;}
+.editretail .btn-edit {background-color: #fff;  border: 1px solid #e77842;  margin-right: 10px;  border-radius: 2px;  color: #e77842;  padding: 2px 15px;text-transform: uppercase;font-size: 12px;vertical-align: middle;}
+.col-custom-sls{width:20.3% !important}
+.col-custom-sll{width:79.7% !important}
+.p-lead-box{position: absolute; right:25px}
+.font-stk{color: #777;}
+.editretail{vertical-align:super;}
+.retailprice{display: inline-block; float: left; vertical-align: top; margin-top: 5px; line-height: 31px;}
+.edit-retailprice{ width: 250px; float: left;}
+.input-group-addon{border:none; background-color: transparent;}
+.input-group-addon:last-child{border:none;}
+.btn-save-sm { background-color: #e77842;  border: 1px solid #e77842; margin-right: 10px; border-radius: 2px; color: #fff !important; padding: 2px 15px;text-transform: uppercase; font-size: 12px ;vertical-align: middle; margin-left: 5px;}
+.btn-save-sm:hover{ background-color: #e77842;  border: 1px solid #e77842; margin-right: 10px; border-radius: 2px; color: #fff !important; padding: 2px 15px;text-transform: uppercase; font-size: 12px ;vertical-align: middle; margin-left: 5px;}
+.edit-price-span a.text-success:hover {color: #fff;}
+.edit-price-span a {color: #e66437;}
+.view-tips-sm{ background: #fff;padding: 5px 11px;display: inline-block;border: 1px solid #ddd;}
+#stock-manager .stockmanager-new .nav-tabs>li.active>a, .stockmanager-new .nav-tabs>li.active>a:hover, .stockmanager-new .nav-tabs>li.active>a:focus {color: #e66437;background-color: #fff !important;border: 1px solid #fff;border-bottom: 2px solid #e66437;cursor: default;}
+#stock-manager .stockmanager-new .btn.active{position: relative;border-bottom: 2px solid #e66437;box-shadow: none; padding: 13px;  color: #e66437;}
+#stock-manager .stockmanager-new .btn:hover{position: relative;border-bottom: 2px solid #e66437;box-shadow: none; padding: 13px;  color: #e66437;}
+#stock-manager .stockmanager-new .btn.active{box-shadow: none; padding: 13px; color: #e66437;}
+#stock-manager .stockmanager-new .btn{position: relative;border-bottom: 2px solid transparent; box-shadow: none; padding: 13px;  color: #444;}
+#stock-manager .stockmanager-new .badge{background: none; color: inherit;padding: 0px;font-size: 14px;}
+#stock-manager .sort-cust{width: 140px;height: 28px !important; padding: 0px;border-radius: 0px !important;}
+#stock-manager .add-stock-bt {background-color: #1fc056 !important;color: #fff !important;border: 1px solid #40bf49 !important;padding: 9px 18px !important;}
+.btn-yes-classified{padding: 8px 45px !important;}
+input[type="checkbox"] + label span { width:20px; height:20px;background:url(../images/sprite-new.png) -34px -8px }
+input[type="checkbox"] + label:hover span {background-position: -34px -8px;}
+input[type="checkbox"]:checked + label span { background-position: -7px -8px; }
+#buyer-lead .btn-primary {background-color: #e77842 !important;border-bottom: none;color: #fff !important;transition: all 0.5s ease-in-out 0s;border: 1px solid #e77842 !important;padding: 8px 45px !important;text-transform: uppercase;}
+.btn-reset{ display: inline;line-height: 48px; vertical-align: text-top;}
+.p-i-s{width: 20px;opacity: .54;}
+#stock-manager-new input[type="checkbox"] + label, input[type="radio"] + label {margin-right: 1px;font-size: 13px;}
+a {cursor: pointer;}
+.advanced-search-btn{width:80px; vertical-align: bottom}
+.car-list>li {padding: 20px 0 15px 0;}
+.icon-owner {display: none !important;}
+.car-list>li:hover> .lead-circle .btn-edit{ background-color: #e77842;  border: 1px solid #e77842;  margin-right: 10px;  border-radius: 2px;  color: #fff; }
+#newNav .btn-primary {padding: 8px 45px !important; font-size: 16px;}
+.lead-circle{ width:73px !important;  height:73px !important;  border:solid  1px #e3e3e3; background:#ffffff; position:relative; display:inline-block; color:#444; transition:all 0.3s; border-radius:0px !important }
+.lead-circle .leadbx{ position:absolute; top:34%; text-align:center; width:100%;}
+.lead-circle:hover{ background:#fff; color:#f0764b; border-color:#f0764b; border:solid  1px #e66437;}
+.lead-circle:hover .pie_progress__number{ font-size:22px; }
+.car-list>li{ padding:15px 0; border-bottom:solid 1px #e5e5e5 !important; background-color: #fff}
+.car-list>li>.clearfix .actionbtns{transition:all 0.3s;}
+.car-list>li:hover{ background-color:#f7f8f9;}
+.btn-default {color: #e37a34!important; background-color: #fff!important; border-color: #e37a34!important; outline: none !important; text-transform: uppercase!important;}
+input[type="checkbox"] + label span { width:20px; height:20px;background:url(../images/sprite-new.png) -34px -8px}
+input[type="checkbox"] + label:hover span {background-position: -34px -8px!important;}
+input[type="checkbox"]:checked + label span { background-position: -7px -8px!important; }
+input[type="radio"] + label span { width:20px; height:20px;  background:url(../images/sprite-new.png) -88px -8px}
+input[type="radio"] + label:hover span {background-position: -88px -8px;!important}
+input[type="radio"]:checked + label span { background-position: -61px -8px;!important }
+input[type="checkbox"] + label span { width:20px; height:20px;background:url(../images/sprite-new.png) -34px -8px}
+input[type="checkbox"] + label:hover span {background-position: -34px -8px;!important}
+input[type="checkbox"]:checked + label span { background-position: -7px -8px; !important}
+
+#action-popup .modal-body{padding: 30px 22px;}
+#action-popup .modal-body label{font-size: 16px; color: #000; opacity: .87}
+#action-popup .modal-header{padding:15px 20px 15px 30px}
+#action-popup .modal-footer{padding:0px 30px 30px; text-align: left}
+#action-popup .btn-primary { background-color: #e77842 !important; border-bottom: none;  color: #fff !important;  transition: all 0.5s ease-in-out 0s; border: none !important}
+#action-popup .btn { padding: 8px 45px; font-size: 16px;}
+.modal-header {border: 0!important; border-radius: 5px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;}
+#action-popup1 .modal-body{padding: 30px 22px;}
+#action-popup1 .modal-body label{ font-size: 16px; color: #000;  opacity: .87; font-weight: bold;}
+#action-popup1 .modal-header{padding:15px 20px 15px 30px}
+#action-popup1 .modal-footer{padding:0px 30px 30px; text-align: left}
+#action-popup1 .btn-primary { background-color: #e77842 !important; border-bottom: none;  color: #fff !important;  transition: all 0.5s ease-in-out 0s; border: none !important}
+#action-popup1 .btn { padding: 8px 45px; font-size: 16px;}
+#action-popup1 .act-inp{height: 40px;box-shadow: none;width: 260px;margin-bottom: 5px;}
+#action-popup1 .act-inp:focus{border-color: #e77842}
+#action-popup1 .intext{font-size: 12px; color: #777;}
+#action-popup1 .intext span{color: #000}
+
+.error-msgTxt {padding: 4px 10px 2px !important; margin-left: 0px !important; font-size: 12px}
+.files {width: 94% !important; padding-left: 10px; margin-left: 10px !important; min-height: 270px;}
+.tags-images {position: absolute;padding: 5px 30px;background: #ff2d47;color: #fff;border-radius: 4px;z-index: 99;}
+.bdr-rds{border-top-left-radius: 5px; border-top-right-radius: 5px; box-shadow: none !important;}
+.tips-div a{color: #000000; opacity: 0.87; text-transform:uppercase}
+.tips-div a:hover{color: #e66437;}
+.tips-div img{margin-right:5px; }
+.classified-icon-div:after, .classified-icon-div:before {bottom: 100%;left: 158px;}
+.classified-icon-div:after {margin-left: -16}
+.form-label {font-size: 14px;line-height: 14px;}
+.classified-icon-div{height:95px;}
+.img_thumb{line-height: 135px;text-align: center;min-height: 140px; width: 210px;}
+#stock-manager-new .form-control {font-size: 14px; opacity: .54; padding:10px}
+.car-specs .font-14 {font-size: 14px !important; color: #000000;opacity: .87;}
+.car-specs .font-stk { color: #000000; opacity: .54;}
+ .edit-retailprice .form-control {font-size: 16px !important; padding: 10px 23px;}
+.multi-dropdwn + ul.dropdown-menu>li:hover {background:rgba(231, 120, 66, 0.39); color: #777;}
+#addrenew .modal-body{padding:30px}
+#tips-popup .modal-header{border-bottom: 1px solid #ddd !important}
+.modal-footer .btn-primary{text-transform: uppercase;}
+.bot-gradi{position: absolute;bottom: 0; width: 95%; height: 50px; background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.54) 100%);}
+.trustmark-sm{position: absolute; bottom: 5px; left: 5px;}
+.inp-icon-r{background-image:url(../images/inr-ind.svg);  background-repeat: no-repeat; background-position: 8px 12px;}

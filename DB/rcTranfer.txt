@@ -1,0 +1,17 @@
+For the server on short_open_tag error closing brackets in the all page. short_open_tag = 1 
+
+Sahil Chopra 5:45 PM
+
+Sprint 1: To be Delivered on 31st Jan
+
+1. Complete Code review and code structure, and code commenting everywhere
+2. Code fixes/ Bug fixing in the complete flow of rc-drive
+3. Rc case addition approaches, through Api and manual lead form.
+4. RC case listing page functionality changes
+5. Agent case assignment
+
+
+https://marvelapp.com/prototype/8bi4d70/screens
+
+
+<li class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');"  data-toggle="modal" data-target="#model-add-seller">ADD LEAD</a></li>

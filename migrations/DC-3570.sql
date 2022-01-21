@@ -1,0 +1,2 @@
+ALTER TABLE `crm_insurance_quotes` ADD `ftype` ENUM('1','2') NOT NULL DEFAULT '2' COMMENT '1=manual,2=calculator' AFTER `flag`;
+ALTER TABLE `crm_insurance_quotes` CHANGE `ftype` `ftype` ENUM( '1', '2' ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '1' COMMENT '1=calculator,2=manual';

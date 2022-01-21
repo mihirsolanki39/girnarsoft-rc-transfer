@@ -1,0 +1,2 @@
+ALTER TABLE `crm_payout` ADD `pdd_charges` VARCHAR( 50 ) NOT NULL DEFAULT '0' AFTER `total_amount` ;
+ALTER TABLE `crm_payout` ADD `pdd_charge_total` VARCHAR( 50 ) NOT NULL DEFAULT '0' AFTER `pdd_charges` ;

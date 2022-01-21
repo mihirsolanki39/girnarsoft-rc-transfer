@@ -1,0 +1,108 @@
+.carousel-border{
+	border:1px solid #e7e7e7;	
+	margin-bottom:1px;
+	background:#F8F8F8;
+	padding:15px;
+}
+.carousel-head{
+	font-size:18px; 
+	padding:10px 15px; 
+	background:#F8F8F8; 
+	border:1px solid #e7e7e7; 
+	border-bottom:1px solid #fff; 
+	border-radius:2px 2px 0px 0px;
+}
+
+.carouselSub-head{font-size:15px; color:#929292;}
+.text-light {
+	color: #919191;
+}
+
+.edit_detail{margin-top:-20px;}
+
+.cloud-plateform{
+	background:url(../images/sprite.png) left top no-repeat;
+	display: inline-block;
+    font-size: 1px;
+    line-height: 0;
+    vertical-align: top;
+}
+
+.cp_gaadi{
+	background-position:-162px -123px;
+	width: 55px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_cdk{
+	background-position: 1px -121px;
+	width: 50px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_carwale{
+	background-position: -95px -123px;
+	width: 40px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+
+.cp_car-trade{
+	background-position: -130px -123px;
+	width: 33px;
+	height: 23px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_olx{
+	background-position:-212px -121px;
+	width: 35px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_quikr{
+	background-position: -161px -66px;
+	width: 42px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_locanto {
+	background-position: -31px -87px;
+	width: 62px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_divendo {
+	background-position: -86px -88px;
+	width: 51px;
+	height: 18px;
+	margin-top: 5px;
+	margin:0px 20px 10px 0px;
+}
+.cp_mitula{
+	background-position: -179px -106px;
+	width: 45px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+
+.cp_usedCar {
+	background-position: -36px -106px;
+	width: 45px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}
+
+.cp_junglee {
+	background-position: -46px -125px;
+	width: 50px;
+	height: 20px;
+	margin:0px 20px 10px 0px;
+}

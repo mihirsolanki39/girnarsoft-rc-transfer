@@ -1,0 +1,83 @@
+
+/* Header and Footer css */
+
+/* Header css */
+.navbar {font-family: 'Roboto', sans-serif;margin-bottom: 0;border: 0;font-size: 16px;letter-spacing: normal;box-shadow:none;background: #1e345f;min-height: 70px;z-index: 99;border-radius: 0; margin-bottom: 0;}
+.navbar-nav>li>a {padding-top: 7px;padding-bottom: 7px;margin: 0px 15px;}
+.navbar-nav {margin-top: 16px;}
+.navbar-brand{padding: 25px 20px;}
+.navbar-default .navbar-nav>li>a {color: rgba(255, 255, 255, 0.54);}
+.navbar-nav li a:hover {color: #fff !important;
+border-bottom: 3px solid #e86335;}
+.navbar-nav li.active a {color: #fff !important;background-color:transparent !important;border-bottom: 3px solid #e86335;}
+.navbar-default .navbar-toggle {border-color: transparent;}
+.dropdown-toggle img{margin-right: 5px;}
+.open .dropdown-toggle {color: #fff;background-color: #555;}
+.dropdown-toggle:hover{border-bottom: 3px solid #293448 !important;}
+.dropdown-menu li a {color: #000 !important;padding: 10px 20px;}
+.dropdown-menu li a:hover {background-color: #fff;text-align:cemter;color: #e86335 !important;border-bottom: 0px solid #fff;   }
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {background-color: transparent !important;border-bottom: 3px solid #293448;color: #fff !important;}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {color: rgba(255, 255, 255, 0.54);}
+.navbar-default .navbar-nav>li.lastli_border a.dropdown-toggle{color:rgba(255, 255, 255, 0.87);}
+
+.navbar-nav li {border-left: none;border-right: none;}
+.navbar-nav li:hover {border-left: none;border-right: none;cursor: pointer;}
+.navbar-header {padding: 0;}
+.navbar-nav>li>a {line-height: 20px;font-size: 16px;text-transform: none;font-weight: normal;}
+.lastli_border {border-left: 1px solid rgba(255, 255, 255, 0.24) !important;}
+.dropdown.open{background: transparent;}
+.navbar-default .navbar-brand{font-size: 20px; font-weight: 700; color: #fff;}
+.navbar-default .navbar-brand:hover{color: #fff;}
+.highlight{color: #e86335;vertical-align: middle;}
+
+
+/* Footer css */
+
+footer {background-color: #d4d9e0;color: rgba(0, 0, 0, 0.54);padding: 15px 15px;text-align:left;}
+footer a {color: #e86335;padding-right: 5px;padding-left: 5px}
+footer a:hover {color: #e86335;text-decoration: none;}  
+ul.foot-policy{ margin: 10px 0px;padding: 0; float: right}
+ul.foot-policy li{ list-style: none;float: left; border-right: 1px solid #e86335; text-transform: uppercase;color: #e66336;font-size: 12px;font-weight: 400; padding: 0px 5px;    line-height: 10px;}
+ul.foot-policy li:last-child{ border-right: 0px solid #e86335 }
+
+
+
+.mrg-all-0{margin: 0;}
+
+/*custom radio*/
+input[type="radio"] { display:none; }
+input[type="radio"] + label{font-size: 14px; color: rgba(0,0,0,0.87);font-weight: 400; cursor: pointer }
+input[type="radio"] + label span { display:inline-block; width:20px; height:20px;margin: -5px 10px 0px 0px; vertical-align:middle; background:url(../images/fm-sprite.png) -89px -35px no-repeat; cursor:pointer; }
+input[type="radio"]:checked + label span { background-position: -52px -35px; }
+input[type="radio"]:checked + label {background-image: none; }
+
+.ie8 input[type="radio" ]{ display:inline-block; }
+.ie8 input[type="radio"] + label span { display:none; }
+
+
+/*custom radio*/
+input[type="checkbox"] { display:none; }
+input[type="checkbox"] + label{font-size: 14px; color: rgba(0,0,0,0.87);font-weight: 400; cursor: pointer }
+input[type="checkbox"] + label span { display:inline-block; width:20px; height:20px;margin: -5px 10px 0px 0px; vertical-align:middle; background:url(../images/fm-sprite.png) -13px -7px no-repeat; cursor:pointer; }
+input[type="checkbox"]:checked + label span{ background-position: -52px -7px; }
+input[type="checkbox"]:checked + label {background-image: none; }
+
+.ie8 input[type="checkbox" ]{ display:inline-block; }
+.ie8 input[type="checkbox"] + label span { display:none; }
+
+
+/**/
+.dropdown-menu.datepicker{width: 275px; max-width: 275px;}
+.datepicker td.day:hover,.datepicker .datepicker-switch:hover,.datepicker td span:hover{background: #e86335 !important; color: #fff;}
+.datepicker td span{height: 36px !important; line-height: 36px !important;}
+.datepicker td, .datepicker th{height: 16px !important;width: 16px !important;}
+.prev:hover,.next:hover{background: transparent !important;}
+.bootstrap-timepicker-hour,.bootstrap-timepicker-minute,.bootstrap-timepicker-meridian{box-shadow: none;border: 1px solid rgba(0,0,0,0.36);}
+.bootstrap-timepicker-widget a{color: rgba(0,0,0,0.54) !important;}
+.bootstrap-timepicker-widget a:hover{background: transparent !important; border: 0;color: rgba(0,0,0,0.87) !important;}
+.bootstrap-timepicker-widget a:active{color: rgba(0,0,0,0.87) !important;}
+.form-control:focus, .form-control:focus~.input-group-addon{border-color:#e86335 !important;}
+.hide-box{position: absolute;top: -8px;right: -1px;z-index: 999;cursor: pointer; display: none;}
+.flt:hover .hide-box{display: block;}
+.bootstrap-timepicker-widget table td input{width: 35px !important; height: 30px !important;}
+

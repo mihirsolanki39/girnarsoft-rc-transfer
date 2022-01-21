@@ -1,0 +1,33 @@
+.bfd-dropfield {
+  display: inline;
+  padding: 5px; }
+
+.bfd-dropfield-inner {
+
+  cursor: pointer;
+  font-size: 32px;
+  text-align: center; }
+  .bfd-dropfield-inner:hover, .bfd-dropfield-inner.bfd-dragover {
+
+	/*background:url(../../main-htmls/images/drag-drop.png) center center no-repeat;*/
+	
+}
+
+.bfd-dropfield-inner{
+	/*background:url(../../main-htmls/images/drag-drop.png) center center no-repeat;*/
+	padding:20px !important;
+}
+
+.bfd-info {
+  overflow: hidden;
+  white-space: nowrap; }
+
+.bfd-error-message {
+  text-align: center; }
+
+.bfd-remove {
+  cursor: pointer; }
+  
+  .file-hidden{visibility:hidden;}
+  
+  
