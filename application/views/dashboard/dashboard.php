@@ -691,69 +691,70 @@
 
 
 <!-- Popups Start -->
-<!-- Add Seller Lead modal -->
+<!-- Add RC Transfer modal -->
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="model-add-rc-transfer-case">
-    <form id="add_seller_lead_form">
+    <form id="add_rc_transfer_form">
         <div class="modal-dialog modal-lg modal-ku">
             <div class="modal-content">
                 <div class="modal-header bg-gray">
-                    <button type="button" class="close" onclick="$('#add_seller_reset').click();$('#add_seller_lead_msg').html('');" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" onclick="$('#add_seller_reset').click();$('#add_rc_transfer_lead_msg').html('');" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Add RC Transfer Case</h4>
                 </div>
 
                 <div class="modal-body">
                     <div class="row mrg-all-0 mrg-B0 mrg-T0">
-                        <div class="col-md-3  col-sm-6 pad-LR tabpading">
+                        <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-bottom: 20px;">
                             <label for="exampleInputPassword1" class="control-label search-form-label">Customer Name *</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <input type="text" placeholder="Enter Customer Name" name="add_seller_name" class="form-control search-form-select-box">
+                                    <input type="text" placeholder="Enter Customer Name" name="add_rc_customer_name" class="form-control search-form-select-box">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3  col-sm-6 pad-LR tabpading">
+                        <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-bottom: 20px;">
                             <label for="exampleInputPassword1" class="control-label search-form-label">Mobile Number *</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <input type="text" placeholder="Enter Mobile Number" onkeypress="return numbersonly(event)" maxlength="10" name="add_seller_mobile" class="form-control search-form-select-box">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3  col-sm-6 pad-LR tabpading">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Email </label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <input type="text" placeholder="Enter Email" name="add_seller_email" class="form-control search-form-select-box">
+                                    <input type="text" placeholder="Enter Mobile Number" onkeypress="return numbersonly(event)" maxlength="10" name="add_rc_customer_mobile" class="form-control search-form-select-box">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3  col-sm-6 pad-LR tabpading">
+                        <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-bottom: 20px;">
+                            <label for="exampleInputPassword1" class="control-label search-form-label">Email </label>
+                            <div class="row row-text-box">
+                                <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                    <input type="text" placeholder="Enter Email" name="add_rc_customer_email" class="form-control search-form-select-box">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-bottom: 20px;">
                             <label for="exampleInputPassword1" class="control-label search-form-label">Source</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <select id="status" class="form-control search-form-select-box" name="add_seller_source">
+                                    <select id="status" class="form-control search-form-select-box" name="add_rc_customer_source">
                                         <option>Walk-In</option>
                                         <option>Gaadi</option>
                                         <option>Cardekho</option>
                                         <option>My Website</option>
-
                                     </select>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="clearfix mrg-T15"></div>
                     <div class="row mrg-all-0 mrg-B0 mrg-T0">
-                        <div class="col-md-3  col-sm-6 pad-LR tabpading">
+                        <div class="col-md-3 col-sm-6 pad-LR tabpading" style="display: none;">
                             <label for="exampleInputPassword1" class="control-label search-form-label">Status</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
                                     <select class="form-control" name="add_seller_status">
                                         <option value="">Status</option>
+                                        <option value="Pending">Pending</option>
                                         <option value="Hot">Hot</option>
                                         <option value="Cold">Cold</option>
                                         <option value="Warm">Warm</option>
@@ -761,161 +762,45 @@
                                         <option value="Walked-In">Evaluation Done</option>
                                         <option value="Converted">Converted</option>
                                         <option value="Closed">Closed</option>
-
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 pad-LR tabpading">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Follow-up Date</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <div>
-                                        <div class="input-append date input-group" id="dp5" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                                            <input style="cursor:pointer;" readonly="readonly" class="span2 form-control calender" size="16" type="text" value="" placeholder="" name="add_rctransfer_follow_date">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6  col-sm-6 pad-LR tabpading">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Comment</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <textarea class="form-control add-c-textBox" name="add_seller_comment" placeholder="Comment"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+
                     <div class="comment-wrap  mCustomScrollbar scrolldivaddsell" data-mcs-theme="dark">
                         <div id="add_seller_car_details">
                             <div class="clearfix mrg-T15"></div>
                             <div class="firstt">
                                 <div class="row mrg-all-0 mrg-B0 mrg-T0 appended-div2" style="border-top:0px solid #fff;padding:20px;background-color: #eee; border-radius: 4px;">
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Make Year *</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select class="form-control search-form-select-box add_seller_myear" name="add_seller_myear[]">
-                                                    <option value="">Make Year</option>
-                                                    <?php for ($i = date("Y"); $i >= 1970; $i--) { ?>
-                                                        <option value="<?= $i ?>"><?php echo $i; ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Month *</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select class="form-control search-form-select-box add_seller_month" name="add_seller_mmonth[]">
-                                                    <option value="">Month</option>
-                                                    <?php for ($i = 1; $i <= 12; $i++) { ?>
-                                                        <option name="<?= $i ?>"><?php echo date('M', strtotime('2009-' . $i . '-02')); ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Make *</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select class="form-control search-form-select-box add_seller_make" onchange="get_model_list(this)" name="add_seller_make[]">
-                                                    <option value="">Make</option>
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input class="mkid" type="hidden" name="make_ids[]" value="">
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Model *</label>
+                                    <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-top: 10px;margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Follow-up Date</label>
                                         <div class="row row-text-box">
                                             <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select class="form-control search-form-select-box add_seller_model" onchange="get_variant_list(this)" name="add_seller_model[]">
-                                                    <option value="">Model</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input class="moid" type="hidden" name="model_ids[]" value="">
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Version *</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select class="form-control search-form-select-box add_seller_variant" onchange="get_fuel_list(this)" name="add_seller_variant[]">
-                                                    <option value="">Version</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input class="vrid" type="hidden" name="version_ids[]" value="">
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Price</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" maxlength="9" placeholder="Price" onkeypress="return numbersonly(event)" name="add_seller_price[]" class="form-control search-form-select-box">
+                                                <div>
+                                                    <div class="input-append date" id="dp5" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                                        <input style="cursor:pointer;" readonly="readonly" class="span2 form-control calender" size="16" type="text" value="" placeholder="" name="add_rctransfer_follow_date">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Reg No*</label>
                                         <div class="row row-text-box">
                                             <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" placeholder="Reg No" name="add_seller_regno[]" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
+                                                <input type="text" placeholder="Reg No" name="add_rc_customer_regno[]" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Kms</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" maxlength="7" onkeypress="return numbersonly(event)" placeholder="Kms" name="add_seller_km[]" class="form-control search-form-select-box">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label ">Fuel Type</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select name="add_seller_fuel_type[]" class="form-control add_seller_fuel_type">
-                                                    <option value="">Select</option>
-                                                    <option class="fuel" value="Petrol">Petrol</option>
-                                                    <option class="fuel" value="Diesel">Diesel</option>
-                                                    <option class="fuel" value="CNG">CNG</option>
-                                                    <option class="fuel" value="LPG">LPG</option>
-                                                    <option class="fuel" value="Hybrid">Hybrid</option>
-                                                    <option class="fuel" value="Electric">Electric</option>
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Colour</label>
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number</label>
                                         <div class="row row-text-box">
                                             <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <select name="add_seller_colour[]" class="form-control othercoloroption" onchange="get_other_color(this)">
-                                                    <option value="">Select</option>
-                                                    <?php
-                                                    foreach ($color as $c => $cols) {
-                                                        echo '<option>' . $cols['name'] . '</option>';
-                                                    }
-                                                    ?>
-                                                    <option class="col" value="Other">Other</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3  col-sm-6 pad-LR tabpading othercolors mrg-T10">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Please Enter Other Color</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" autocomplete="off" name="other_color[]" class="form-control search-form-select-box">
+                                                <input type="text" placeholder="Aadhar Number" name="add_seller_regno[]" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
                                             </div>
                                         </div>
                                     </div>
@@ -923,7 +808,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <?php
@@ -934,10 +818,10 @@
                 <?php //}  
                 ?>
                 <div class="modal-footer">
-                    <span id="add_seller_lead_msg"></span>
+                    <span id="add_rc_transfer_lead_msg"></span>
                     <button type="button" class="btn btn-default add_lead_cancel" onclick="$('#add_seller_reset').click();
-                    $('#add_seller_lead_msg').html('');" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="add_seller_lead()">Submit</button>
+                    $('#add_rc_transfer_lead_msg').html('');" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="add_rc_transfer_lead()">Submit</button>
                 </div>
             </div><!-- /.modal-content -->
         </div>
@@ -945,7 +829,7 @@
     </form>
 </div>
 <!-- end Popups Start -->
-<!-- end Add Seller Lead modal -->
+<!-- end Add RC Transfer modal -->
 
 <?php echo base_url('assets/admin_assets/js/waterfall-light.js'); ?>
 <!-- <script type="text/javascript" src="http://dealercrm.com/assets/admin_assets/js/waterfall-light.js"></script> -->
@@ -956,7 +840,7 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 <script type="text/javascript">
-    var type = "<?php echo $type ?>";
+    var type = "<?php echo $type; ?>";
     Highcharts.chart('funnelchart', {
         chart: {
             type: 'funnel'
@@ -1261,12 +1145,12 @@
 
 <script>
     jQuery(function() {
-        var dd = "<?php echo date('d-m-Y H:00',strtotime(date('Y-m-d H:00'))+(3600));  ?>";
+        var dd = "<?php echo date('d-m-Y H:00', strtotime(date('Y-m-d H:00')) + (3600));  ?>";
         var ddd = "<?php echo date('d-m-Y');  ?>";
         var dy = "<?php echo date('Y');  ?>";
         var cm = "<?php echo date('m');  ?>";
-        var dm = "<?php echo date('H',strtotime(date('Y-m-d H:00'))+(3600));  ?>";
-        var md = "<?php echo date('d-m-Y H:00',strtotime(date('Y-m-d H:00'))+(3600*25));  ?>";
+        var dm = "<?php echo date('H', strtotime(date('Y-m-d H:00')) + (3600));  ?>";
+        var md = "<?php echo date('d-m-Y H:00', strtotime(date('Y-m-d H:00')) + (3600 * 25));  ?>";
         var search_calender_open = 0;
 
         jQuery('input[name=add_rctransfer_follow_date]').datetimepicker({
@@ -1300,4 +1184,42 @@
             }
         });
     });
+
+    var add_lead = 0;
+
+    function add_rc_transfer_lead() {
+        // alert($('#add_rc_transfer_form').serialize());
+        if (add_lead == 0) {
+            $(this).prop('disabled', true);
+            var formdata = $('#add_rc_transfer_form').serialize();
+            $.ajax({
+                url: base_url + "LeadSell/add_rc_transfer_lead",
+                type: 'POST',
+                data: formdata,
+                dataType: 'html',
+                success: function(data) {
+                    // alert(data);
+                    $('#add_rc_transfer_lead_msg').html(data);
+                    $(this).prop('disabled', false);
+                    if (data.trim() == '<span class="success">Lead Added Successfully</span>') {
+                        //alert(data);
+                        var t = setTimeout(function() {
+                            $('.sell_form_reset').click();
+                            $('.add_lead_cancel').click();
+                        }, 1000);
+                    }
+                    add_lead = 0;
+                }
+            });
+        }
+        add_lead = 1;
+
+    }
+
+    // function add_more() {
+    //     $('#add_seller_car_details').append($('#add_seller_car_details .firstt').html());
+    //     $("select[name='add_seller_fuel_type[]']").last().prop('value', '');
+    //     $("input[name='other_color[]']").last().prop('value', '');
+    //     $(".othercolors").last().hide();
+    // }
 </script>
