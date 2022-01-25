@@ -271,6 +271,18 @@
                     height: 400px;
                     margin: 0 auto;
                 }
+                #add_rc_transfer_lead_msg .error {
+                    font-size: 12px !important;
+                    color: #900505 !important;
+                    position: relative;
+                    top: 0;
+                }
+                #add_rc_transfer_lead_msg .success {
+                    font-size: 12px !important;
+                    color: #449d44 !important;
+                    position: relative;
+                    top: 0;
+                }
             </style>
             <?php
             if ($type == 1)
@@ -318,6 +330,7 @@
                             // if(){
                             ?>
                             <p class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');" data-toggle="modal" data-target="#model-add-rc-transfer-case">ADD RC Case</a></p>
+                            <p class="pull-right"><a class="btn btn-success font-14" href="<?php echo base_url(); ?>">ADD RC Case</a></p>
                             <?php //} 
                             ?>
 
@@ -694,7 +707,7 @@
 <!-- Add RC Transfer modal -->
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="model-add-rc-transfer-case">
-    <form id="add_rc_transfer_form">
+    <form id="add_rc_transfer_form" method="post" enctype="multipart/form-data">
         <div class="modal-dialog modal-lg modal-ku">
             <div class="modal-content">
                 <div class="modal-header bg-gray">
@@ -723,7 +736,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-bottom: 20px;">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Email </label>
+                            <label for="exampleInputPassword1" class="control-label search-form-label">Email *</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
                                     <input type="text" placeholder="Enter Email" name="add_rc_customer_email" class="form-control search-form-select-box">
@@ -752,17 +765,7 @@
                             <label for="exampleInputPassword1" class="control-label search-form-label">Status</label>
                             <div class="row row-text-box">
                                 <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <select class="form-control" name="add_seller_status">
-                                        <option value="">Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Hot">Hot</option>
-                                        <option value="Cold">Cold</option>
-                                        <option value="Warm">Warm</option>
-                                        <option value="Evaluation_Scheduled">Evaluation Scheduled</option>
-                                        <option value="Walked-In">Evaluation Done</option>
-                                        <option value="Converted">Converted</option>
-                                        <option value="Closed">Closed</option>
-                                    </select>
+                                    <input type="hidden" value="Pending" name="add_rc_transfer_status" />
                                 </div>
                             </div>
                         </div>
@@ -773,41 +776,96 @@
                             <div class="clearfix mrg-T15"></div>
                             <div class="firstt">
                                 <div class="row mrg-all-0 mrg-B0 mrg-T0 appended-div2" style="border-top:0px solid #fff;padding:20px;background-color: #eee; border-radius: 4px;">
-
-                                    <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-top: 10px;margin-bottom: 20px;">
-                                        <label for="exampleInputPassword1" class="control-label search-form-label">Follow-up Date</label>
-                                        <div class="row row-text-box">
-                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <div>
-                                                    <div class="input-append date" id="dp5" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                                                        <input style="cursor:pointer;" readonly="readonly" class="span2 form-control calender" size="16" type="text" value="" placeholder="" name="add_rctransfer_follow_date">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                     <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Reg No*</label>
                                         <div class="row row-text-box">
                                             <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" placeholder="Reg No" name="add_rc_customer_regno[]" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
+                                                <input type="text" placeholder="Reg No" name="add_rc_customer_regno" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6 col-sm-6 pad-LR tabpading" style="margin-top: 10px;margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Generated Date</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <div>
+                                                    <div class="input-append date" id="dp5" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                                        <input style="cursor:pointer;" readonly="readonly" class="span2 form-control calender" size="16" type="text" value="" placeholder="" name="add_rc_transfer_follow_date">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
 
                                     <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number</label>
                                         <div class="row row-text-box">
                                             <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                                <input type="text" placeholder="Aadhar Number" name="add_seller_regno[]" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
+                                                <input type="text" placeholder="Aadhar Number" name="add_aadhar_number" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">RC Card Front</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_rc_card_front" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">RC Card Back</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_rc_card_back" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Vehicle Insurance</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_rc_vehicle_insurance" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Card Front</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_aadhar_card_front" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Card Back</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_aadhar_card_back" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
+                                        <label for="exampleInputPassword1" class="control-label search-form-label">Pan Card</label>
+                                        <div class="row row-text-box">
+                                            <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                                <input type="file" name="add_pan_card" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
 
                 <?php
@@ -1153,7 +1211,7 @@
         var md = "<?php echo date('d-m-Y H:00', strtotime(date('Y-m-d H:00')) + (3600 * 25));  ?>";
         var search_calender_open = 0;
 
-        jQuery('input[name=add_rctransfer_follow_date]').datetimepicker({
+        jQuery('input[name=add_rc_transfer_follow_date]').datetimepicker({
             timepicker: true,
             format: 'd-m-Y H:i',
             minDate: dd ? dd : false,
@@ -1188,33 +1246,44 @@
     var add_lead = 0;
 
     function add_rc_transfer_lead() {
-        // alert($('#add_rc_transfer_form').serialize());
         if (add_lead == 0) {
             $(this).prop('disabled', true);
-            var formdata = $('#add_rc_transfer_form').serialize();
+            // var formdata = $('#add_rc_transfer_form').serialize();            
+            var form_data = new FormData(document.getElementById("add_rc_transfer_form"));            
             $.ajax({
-                url: base_url + "LeadSell/add_rc_transfer_lead",
+                url: base_url + "RcCase/save_rctransfer_detail",
                 type: 'POST',
-                data: formdata,
-                dataType: 'html',
-                success: function(data) {
-                    // alert(data);
+                data: form_data,                
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data) {                    
                     $('#add_rc_transfer_lead_msg').html(data);
                     $(this).prop('disabled', false);
-                    if (data.trim() == '<span class="success">Lead Added Successfully</span>') {
+                    if (data.trim() == '<span class="success">RC Added Successfully</span>') {
                         //alert(data);
-                        var t = setTimeout(function() {
-                            $('.sell_form_reset').click();
-                            $('.add_lead_cancel').click();
-                        }, 1000);
+                        setTimeout(function() {
+                            // $('.sell_form_reset').click();
+                            // $('.add_lead_cancel').click();
+                            window.location.reload();
+                        }, 3000);
                     }
                     add_lead = 0;
                 }
             });
         }
         add_lead = 1;
-
     }
+
+    function numbersonly(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8)
+        { //if the key isn't the backspace key (which we should allow)
+            if (unicode < 48 || unicode > 57) //if not a number
+                return false //disable key press
+        }
+    }
+
 
     // function add_more() {
     //     $('#add_seller_car_details').append($('#add_seller_car_details .firstt').html());

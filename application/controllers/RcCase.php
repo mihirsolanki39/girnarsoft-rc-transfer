@@ -248,8 +248,8 @@ class RcCase extends MY_Controller
         $this->upload->initialize($config);
 
         if (!$this->upload->do_upload($file_name_key)) {
-            echo $this->response = $this->upload->display_errors();
-            exit;
+            // echo $this->response = $this->upload->display_errors();
+            // exit;
             $error  = array('Invalid Request!');
             echo $result = array('error' => $error, 'status' => 400);
             exit;            
@@ -571,7 +571,7 @@ class RcCase extends MY_Controller
         $editId      = !empty($rc_id) ? explode('_', base64_decode($rc_id)) : '';
         $rcId        = !empty($editId) ? end($editId) : '';
         $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcId);
-        $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RTO');
+        $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RC Transfer');
         $data['rolemgmt'] = $this->UserMgmtRole();
         $getRcDetail['rto_charges'] = $this->IND_money_format(!empty($getRcDetail['rto_charges']) ? $getRcDetail['rto_charges'] : '');
         $data['getRcDetail'] = $getRcDetail;
@@ -645,10 +645,10 @@ class RcCase extends MY_Controller
         $this->Crm_rc->updateLoanNetPaymentTable($data, $rcid);
         
         if (empty($actions))
-            $actions = 1;            
+            $actions = 1;
             $this->addHistoryLog($rcid, serialize($data), $activity, $this->session->userdata['userinfo']['id'], $actions);
 
-        if ((($data['rc_status'] == '2') || ($data['rc_status'] == '3')) && ($data['pending_from'] == '1')) {            
+        if ((($data['rc_status'] == '2') || ($data['rc_status'] == '3')) && ($data['pending_from'] == '1')) {
             $result = array('status' => 'True', 'message' => 'Rc details Updated Successfully', 'Action' =>  base_url() . 'uploadRcDocs/' . base64_encode('RcId_' . $rcid) . '/transferred');
         } else if ($data['rc_status'] != '1') {            
             $result = array('status' => 'True', 'message' => 'Rc details Updated Successfully', 'Action' =>  base_url() . 'uploadRcDocs/' . base64_encode('RcId_' . $rcid));           
@@ -1041,6 +1041,148 @@ class RcCase extends MY_Controller
         } else {
             echo json_encode(array('status' => '0'));
             exit;
+        }
+    }
+
+    function getcities(){
+        $stateId   = $this->input->post('stateId');
+        $this->db->select('city_id,city_name');
+        $this->db->from('city_list');
+        $this->db->where('state_id', $stateId);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $option= "<option value='' >Select City</option>";
+        foreach ($result as $cityKey => $cityValue) {
+             $option .="<option value='" . $cityValue['city_id'] . "' >" . $cityValue['city_name'] . "</option>";
+         }
+         echo $option;
+     }
+
+
+    public function add_rc_transfer(){
+        $data = [];
+        $imgListArr = [];
+        $data['pageTitle']      = 'Add Rc Transfer Case';
+        $data['pageType']       = 'rcCase';
+        $tagIds = '';
+        $loanCaseId = '';
+        $csId = '';
+        $editId      = !empty($rc_id) ? explode('_', base64_decode($rc_id)) : '';
+        $rcId        = !empty($editId) ? end($editId) : '';
+        $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcId);
+        $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RC Transfer');
+        $data['rolemgmt'] = $this->UserMgmtRole();
+        $getRcDetail['rto_charges'] = $this->IND_money_format(!empty($getRcDetail['rto_charges']) ? $getRcDetail['rto_charges'] : '');
+        $data['getRcDetail'] = $getRcDetail;
+        $data['stateList']  =  $this->state_list->getStateList();
+        $data['userList']   =  $this->Crm_user->getEmployeeByTeam('Sales');
+        //  echo "<pre>";print_r($data);die;
+        $this->loadViews('RcCase/add_rc_transfer', $data);
+    }
+
+
+    public function save_rctransfer_detail() {
+        $datapost = $this->input->post();
+
+        // echo '<pre>';
+        // print_r($datapost);
+        // exit;
+
+        $chkValidateRcCase= $this->chkValidateRcCase($datapost);
+        if($chkValidateRcCase){
+            return $chkValidateRcCase;
+            exit;
+        }
+
+        $dealerId = DEALER_ID;
+        $insertData = [];
+        $insertData['customer_name'] = !empty($datapost['add_rc_customer_name']) ? $datapost['add_rc_customer_name'] : '';
+        $insertData['customer_email'] = !empty($datapost['add_rc_customer_email']) ? $datapost['add_rc_customer_email'] : '';
+        $insertData['customer_mobile'] = !empty($datapost['add_rc_customer_mobile']) ? $datapost['add_rc_customer_mobile'] : '';
+        $insertData['rc_status'] = !empty($datapost['add_rc_transfer_status']) ? $datapost['add_rc_transfer_status'] : '';
+        $insertData['reg_no'] = !empty($datapost['add_rc_customer_regno']) ? $datapost['add_rc_customer_regno'] : '';
+        $insertData['rto_agent'] = !empty($datapost['rto_agent']) ? $datapost['rto_agent'] : '';
+        $insertData['pending_from'] = !empty($datapost['pending_from']) ? $datapost['pending_from'] : '';
+        $insertData['updated_by'] = !empty($datapost['updated_by']) ? $datapost['updated_by'] : '';
+
+        $results = $this->Crm_rc->setRcTransferDetail($insertData);
+
+        // echo '<pre>';
+        // print_r($results);
+        // exit;
+
+        $arr = $this->uri->segment(3);
+        $ar  = explode('-', $arr);
+        $data = [];
+        $file_name_key              = key($_FILES);
+        $name = $_FILES['name'];
+        $config['upload_path']      = 'upload_rc_doc/';
+        $config['allowed_types']    = ['gif', 'png', 'jpg', 'jpeg', 'pdf', 'tif'];
+        $config['max_size']         = '8000';
+        $config['max_width']        = '7000';
+        $config['max_height']       = '7000';        
+        $config['encrypt_name']     = True;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload($file_name_key)) {
+            $error  = array('Invalid Request!');
+            echo $result = array('error' => $error, 'status' => 400);
+            exit;            
+        } else {            
+            $datas = $this->upload->data();
+            $data['doc_name'] = $datas['file_name'];
+            $data['doc_url'] = 'upload_rc_doc/' . $datas['file_name'];
+            $data['customer_id'] = $results['customer_id'];
+            $data['case_id'] = $results['customer_id'];
+            $data['doc_type'] = '4';
+            if (!empty($ar['2'])) {
+                $data['doc_type'] = '5';
+            }
+            $result = $this->Crm_upload_docs_list->insertLoginDocs($data);
+            echo trim($result);
+            exit;            
+        }
+        if(!empty($results)){
+            echo '<span class="success">RC Added Successfully</span>'; die;
+        }
+    }
+
+    public function chkValidateRcCase($datapost) {
+        $name = addslashes(trim($datapost['add_rc_customer_name']));
+        if ($name == '') {
+            echo '<span class="error">Please Enter Name</span>';
+            die;
+        }
+        if (preg_match('/([^a-zA-Z.\s])/', $name)) {
+            echo '<span class="error">Special Characters or Digits are Not Allowed in Name</span>';
+            die;
+        }
+        $email = !empty($datapost['add_rc_customer_email'])?addslashes(trim($datapost['add_rc_customer_email'])):'';
+
+        $mobile = addslashes(trim($datapost['add_rc_customer_mobile']));
+
+        if ($mobile == '' || strlen($mobile) < 10 || !is_numeric($mobile) || !($mobile[0] == '6' || $mobile[0] == '7' || $mobile[0] == '8' || $mobile[0] == '9')) {
+            echo '<span class="error">Please Enter a Valid Mobile Number</span>';
+            die;
+        }
+
+        if(!empty($email)) {
+            if (preg_match('/([^a-zA-Z0-9._@])/', $email)) {
+                echo '<span class="error">Special Characters are Not Allowed in Email</span>';
+                die;
+            }
+            $emailArr = explode("@", $email);
+            $emailArr2 = explode(".", $emailArr[1]);
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) || is_numeric($emailArr[0]) || is_numeric($emailArr2[0]) || is_numeric($emailArr2[1])) {
+                echo '<span class="error">Please Enter Valid Email Address</span>';
+                die;
+            }
+        }
+
+        if ($datapost['add_rc_customer_regno'] == '' ) {
+            echo '<span class="error">Please Enter Reg No</span>';
+            die;
         }
     }
 }
