@@ -22,7 +22,7 @@
   <div class="container-fluid">
   	<div class="row">
   		<div class="col-md-12 pad-LR-10 mrg-B40">
-  			<h2 class="page-title">Upload RC Docs</h2>
+  			<h2 class="page-title">Upload RC Docs1</h2>
   			<div class="white-section upload-docs">
   				<div class="row">
   					<div class="col-md-12">

@@ -22,33 +22,33 @@ $model = !empty($getRcDetail['parent_modelName']) ? $getRcDetail['parent_modelNa
 			<div class="col-dc <?php echo (!empty($getRcDetail['customer_name'])) ? 'col-dc-width-auto' : ''; ?>">
 				<h3 class="subheading">Customer Details</h3>
 				<ul class="sub-value-list">
-					<li> <?php echo (empty($getRcDetail['customer_name'])) ? $getRcDetail['customer_name'] : 'NA'; ?>
+					<li> <?php echo (!empty($getRcDetail['customer_name'])) ? $getRcDetail['customer_name'] : 'NA'; ?>
 					</li>
-					<li><?php echo (empty($getRcDetail['customer_mobile'])) ? $getRcDetail['customer_mobile'] : 'NA'; ?></li>
+					<li><?php echo (!empty($getRcDetail['customer_mobile'])) ? $getRcDetail['customer_mobile'] : 'NA'; ?></li>
 				</ul>
 			</div>
-			<div class="col-dc <?php echo (empty($make)) ? 'col-dc-width-auto' : ''; ?>">
+			<div class="col-dc <?php echo (!empty($make)) ? 'col-dc-width-auto' : ''; ?>">
 				<h3 class="subheading">Car details</h3>
 				<ul class="sub-value-list">
-					<li><?php if (empty($make)) {
+					<li><?php if (!empty($make)) {
 							echo $make;
 						}
-						if (empty($model)) {
+						if (!empty($model)) {
 							echo ' ' . $model;
 						}
-						if (empty($getRcDetail['version'])) {
+						if (!empty($getRcDetail['version'])) {
 							echo ' ' . $getRcDetail['version'];
 						} ?></li>
-					<?php if (empty($getRcDetail['reg_no'])) {
+					<?php if (!empty($getRcDetail['reg_no'])) {
 						echo '<li>' . strtoupper($getRcDetail['reg_no']) . '</li>';
 					} ?>
 
 				</ul>
 			</div>
-			<div class="col-dc <?php echo (empty($getRcDetail['rc_status'])) ? 'col-dc-width-auto' : ''; ?>">
+			<div class="col-dc <?php echo (!empty($getRcDetail['rc_status'])) ? 'col-dc-width-auto' : ''; ?>">
 				<h3 class="subheading">RC Status</h3>
 				<ul class="sub-value-list">
-					<li> <?php if (empty($getRcDetail['rc_status'])) {
+					<li> <?php if (!empty($getRcDetail['rc_status'])) {
 								if ($getRcDetail['rc_status'] == '1') {
 									echo "Pending";
 								} else if ($getRcDetail['rc_status'] == '2') {
@@ -61,10 +61,10 @@ $model = !empty($getRcDetail['parent_modelName']) ? $getRcDetail['parent_modelNa
 				</ul>
 			</div>
 
-			<div class="col-dc <?php echo (empty($getRcDetail['pending_from'])) ? 'col-dc-width-auto' : ''; ?>">
+			<div class="col-dc <?php echo (!empty($getRcDetail['pending_from'])) ? 'col-dc-width-auto' : ''; ?>">
 				<h3 class="subheading">RC to be Transferred by</h3>
 				<ul class="sub-value-list">
-					<li> <?php if (empty($getRcDetail['pending_from'])) {
+					<li> <?php if (!empty($getRcDetail['pending_from'])) {
 								if ($getRcDetail['pending_from'] == '1') {
 									echo "Dealer";
 								} else {
@@ -79,17 +79,17 @@ $model = !empty($getRcDetail['parent_modelName']) ? $getRcDetail['parent_modelNa
 </section>
 <div class="row mrg-all-0">
 	<div class="col-crm-left sidenav sidebar-ins" id="sidebar">
-		<ul class="par-ul">
+		<ul class="par-ul">           
 
-            <li class="side_nav"><a href="<?= empty($getRcDetail["rc_detail_form_update"]) ? base_url('rcDetail/') . base64_encode('RcId_' . $getRcDetail["rcid"]) : '#' ?>" class="sidenav-a <?= (!empty($getRcDetail["rc_detail_form_update"]) && ($getRcDetail["rc_detail_form_update"] == '1')) ? 'completed' : ((isset($url) && ($url == 'rcDetail')) ? 'active' : '#') ?>">
-                <span class="img-type"></span> RC Details</a>
+			<li class="side_nav"><a class="sidenav-a active" href="<?php echo base_url('addRcCase/');  ?>">
+					<span class="img-type"></span> RC Details</a>
+			</li>
+
+			<li class="side_nav"><a class="sidenav-a active" href="<?php echo base_url('rcUploadDoc/')  //base64_encode('RcId_' . $getRcDetail["rcid"]); ?>">
+					<span class="img-type"></span> RC Document</a>
 			</li>
 			
-			<?php if (empty($abc)) { ?>
-				<li class="side_nav"><a href="<?= (empty($getRcDetail["rc_detail_form_update"])) ? base_url('uploadRcDocs/') . base64_encode('RcId_' . $getRcDetail["rcid"]) : '#' ?>" class="sidenav-a  <?= (!empty($getRcDetail["upload_rc_docs"]) && $getRcDetail["upload_rc_docs"] == '1') ? 'completed' : 'active' ?> ">
-					<span class="img-type"></span> RC Document</a>
-				</li>
-			<? } ?>
+			
 		</ul>
 	</div>
 	<div class="col-crm-right">

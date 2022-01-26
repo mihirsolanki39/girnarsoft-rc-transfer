@@ -364,10 +364,6 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 					</div>
 				</div>
 
-
-
-
-
 			</div>
 			<script src="<?= base_url('assets/js/dropzone_loan.js'); ?>"></script>
 			<!--<script src="<//?php echo base_url(); ?>assets/js/sorting.js"></script>-->
@@ -938,13 +934,11 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 									$('#tagCount').html(countRemaining);
 									$('.next').trigger('click');
 								}
-
 							}
 							$('#applicationBank').attr('class', 'modal fade');
 							$('#applicationBank').attr('style', 'display:none;');
 						}
 					});
-
 				}
 
 				function markIncorrect() {
@@ -1138,4 +1132,4 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 					});*/
 					window.top.location.href = base_url + "RcCase/getImagedownload/" + case_id + "/4";
 				}
-			</script>
+		</script>

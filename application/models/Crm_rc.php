@@ -611,7 +611,6 @@ class Crm_rc extends CI_Model
 
     public function setRcTransferDetail($params)
     {
-        // if(empty($params)){
         $rcDetail['buyer_case_id'] = !empty($params['buyer_case_id']) ? $params['buyer_case_id'] : '';
         $rcDetail['loan_ref_id'] = !empty($params['loan_ref_id']) ? $params['loan_ref_id'] : '';
         $rcDetail['customer_mobile'] = !empty($params['customer_mobile']) ? $params['customer_mobile'] : '';
@@ -646,22 +645,35 @@ class Crm_rc extends CI_Model
             $rcInfoId = $this->db->insert_id();
         }
 
-        $rcAllDeatails = array('customer_id' => $rcId, 'case' => $rcInfoId);
+        if (!empty($rcId)) {
+            $rcMapData['rc_id'] = !empty($rcId) ? $rcId : '';
+            $rcMapData['customer_id'] = $rcDetail['customer_id'];
+            $rcMapData['aadhar_no'] = !empty($params['aadhar_no']) ? $params['aadhar_no'] : '';
+            $rcMapData['rto_type'] = !empty($params['rto_type']) ? $params['rto_type'] : '';
+            $rcMapData['from_state'] = !empty($params['from_state']) ? $params['from_state'] : '';
+            $rcMapData['from_city'] = !empty($params['from_city']) ? $params['from_city'] : '';
+            $rcMapData['to_state'] = !empty($params['to_state']) ? $params['to_state'] : '';
+            $rcMapData['to_city'] = !empty($params['to_city']) ? $params['to_city'] : '';
+            $rcMapData['generated_date'] = $this->dateTime;
+            $this->db->insert('crm_rc_transfer_mapping', $rcMapData);
+            $rcMapId = $this->db->insert_id();
+        }
 
+        $rcAllDeatails = array('rc_ids' => $rcInfoId, 'customer_id' => $rcDetail['customer_id'], 'case' => $rcInfoId, 'mapId' => $rcMapId);
         // }
         return $rcAllDeatails;
     }
 
-    public function api_log($requestData, $id = '')
-    {
-        if (empty($id)) {
-            $this->db->insert('crm_dc_sync_log', $requestData);
-            $lastId = $this->db->insert_id();
-        } else {
-            $this->db->where('id', $id);
-            $this->db->update('crm_dc_sync_log', $requestData);
-            $lastId = $id;
-        }
-        return $lastId;
-    }
+    // public function api_log($requestData, $id = '')
+    // {
+    //     if (empty($id)) {
+    //         $this->db->insert('crm_dc_sync_log', $requestData);
+    //         $lastId = $this->db->insert_id();
+    //     } else {
+    //         $this->db->where('id', $id);
+    //         $this->db->update('crm_dc_sync_log', $requestData);
+    //         $lastId = $id;
+    //     }
+    //     return $lastId;
+    // }
 }

@@ -14,35 +14,36 @@
                                 <label for="exampleInputPassword1" class="control-label search-form-label">Customer Full Name *</label>
                                 <div class="row row-text-box">
                                     <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                        <input type="text" placeholder="Enter Customer Name" name="add_rc_customer_name" class="form-control search-form-select-box">
+                                        <input type="text" placeholder="Enter Customer Name" name="add_rc_customer_name" id="add_rc_customer_name" class="form-control search-form-select-box">
                                     </div>
                                 </div>
-                                <!--<div class="d-arrow"></div>-->
-                                <div class="error" id="err_rc_status"></div>
+                                <!-- <div class="d-arrow"></div> -->
+                                <div class="error" id="err_rc_customer_name"></div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="crm-label ">RC to be transfered by*</label>
                                 <select class="form-control crm-form testselect1" id="pndingfrm" name="rc_transfered">
                                     <option value="1" <?= (!empty($getRcDetail['pending_from']) && $getRcDetail['pending_from'] == '1' ? 'selected=selected' : '') ?>>Dealer</option>
                                     <option value="2" <?= (!empty($getRcDetail['pending_from']) && $getRcDetail['pending_from'] == '2' ? 'selected=selected' : '') ?>>In-house</option>
                                 </select>
-                                <!--<div class="d-arrow"></div>-->
+                                <div class="d-arrow"></div>
                                 <div class="error" id="err_rc_transfered"></div>
                             </div>
-                        </div>
-                         
+                        </div> -->
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputPassword1" class="control-label search-form-label">Contact Number *</label>
                                 <div class="row row-text-box">
                                     <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                        <input type="text" placeholder="Enter Mobile Number" onkeypress="return numbersonly(event)" maxlength="10" name="add_rc_customer_mobile" class="form-control search-form-select-box">
+                                        <input type="text" placeholder="Enter Mobile Number" onkeypress="return numbersonly(event)" maxlength="10" name="add_rc_customer_mobile" id="add_rc_customer_mobile" class="form-control search-form-select-box">
                                     </div>
                                 </div>
-                                <div class="error" id="err_rc_status"></div>
+                                <!-- <div class="d-arrow"></div> -->
+                                <div class="error" id="err_rc_customer_mobile"></div>
                             </div>
                         </div>
 
@@ -51,122 +52,188 @@
                                 <label for="exampleInputPassword1" class="control-label search-form-label">Email *</label>
                                 <div class="row row-text-box">
                                     <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                        <input type="text" placeholder="Enter Email" name="add_rc_customer_email" class="form-control search-form-select-box">
+                                        <input type="text" placeholder="Enter Email" name="add_rc_customer_email" id="add_rc_customer_email" class="form-control search-form-select-box">
                                     </div>
                                 </div>
+                                <!-- <div class="d-arrow"></div> -->
+                                <div class="error" id="err_rc_customer_email"></div>
                             </div>
-                        </div> 
+                        </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number *</label>
                                 <div class="row row-text-box">
                                     <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                        <input type="text" placeholder="Enter Email" name="add_rc_aadhar_number" class="form-control search-form-select-box">
+                                        <input type="text" placeholder="Enter Aadhar Number" name="add_rc_aadhar_number" id="add_rc_aadhar_number" class="form-control search-form-select-box">
                                     </div>
                                 </div>
-                            </div>
-                        </div>                                           
-
-                        <div class="col-md-6">
-                            <div class="form-group trans">
-                                <label for="" class="crm-label">Assigned to*</label>
-                                <select class="form-control crm-form testselect1" id="assign_to" name="assign_to">
-                                    <option value="">Assigned To</option>
-                                    <?php foreach ($rtoTeam as $team => $rel) { ?>
-                                        <option value="<?= $rel['id']; ?>" <?= (!empty($getRcDetail['rto_agent']) && $getRcDetail['rto_agent'] == $rel['id'] ? 'selected=selected' : '') ?>><?= $rel['name']; ?></option>
-                                    <?php  } ?>
-                                </select>
-                                <div class="d-arrow"></div>
-                                <div class="error" id="err_rc_assigned"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group trans">
-                                <label for="exampleInputPassword1" class="control-label search-form-label">Source</label>
-                                <div class="row row-text-box">
-                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                        <select id="status" class="form-control search-form-select-box" name="add_rc_customer_source">
-                                            <option>Walk-In</option>
-                                            <option>Gaadi</option>
-                                            <option>Cardekho</option>
-                                            <option>My Website</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="error" id="err_on"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Reg No*</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <input type="text" placeholder="Reg No" name="add_rc_customer_regno" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
-                                </div>
+                                <!-- <div class="d-arrow"></div> -->
+                                <div class="error" id="err_rc_aadhar_num"></div>
                             </div>
                         </div>
 
                         <!-- <div class="col-md-6">
-                            <label for="exampleInputPassword1" class="control-label search-form-label">Generated Date</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <div>
-                                        <div class="input-append date" id="dp5" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                                            <input style="cursor:pointer;" readonly="readonly" class="span2 form-control calender" size="16" type="text" value="" placeholder="" name="add_rc_transfer_follow_date">
-                                        </div>
+                            <div class="form-group">
+                                <label for="" class="control-label search-form-label">Assigned to*</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select class="form-control crm-form testselect1" id="assign_to" name="assign_to">
+                                            <option value="">Assigned To</option>
+                                            <?php //foreach ($rtoTeam as $team => $rel) { 
+                                            ?>
+                                                <option value="<?php //echo $rel['id']; 
+                                                                ?>" <?php //(!empty($getRcDetail['rto_agent']) && $getRcDetail['rto_agent'] == $rel['id'] ? 'selected=selected' : '') 
+                                                                    ?>> <?php //echo $rel['name']; 
+                                                                                                ?></option>
+                                            <?php //} 
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="d-arrow"></div>
+                                <div class="error" id="err_rc_assigned"></div>
                             </div>
                         </div> -->
 
-                        <div class="col-md-6" style="margin-top: 20px;">
-                            <label for="Demail" class="control-label search-form-label">State*</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <select name="state" id="state" class=" form-control customize-form dstate" >
-                                        <option value="">Select State</option>
-                                        <?php foreach ($stateList as $state) { ?>
-                                            <?php if (isset($dealerInfo)) { ?>
-                                                <option value="<?= $state->state_id ?>" <?php if ($state->state_id == $dealerInfo[0]->state) {
-                                            echo "selected=selected";
-                                        } ?>><?= $state->state_name ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?= $state->state_id ?>" ><?= $state->state_name ?></option>
-                                        <?php }
-                                    } ?>
-                                    </select>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="control-label search-form-label">Source</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select id="status" class="form-control search-form-select-box" name="add_rc_customer_source">
+                                            <option value="Walk-In">Walk-In</option>
+                                            <option value="Gaadi">Gaadi</option>
+                                            <option value="Cardekho">Cardekho</option>
+                                            <option value="My Website">My Website</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="error" id="err_customer_source"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="control-label search-form-label">Reg No* (RC Number)</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <input type="text" placeholder="Reg No" name="add_rc_customer_regno" id="add_rc_customer_regno" onkeyup="$(this).val(this.value.toUpperCase());" class="form-control search-form-select-box">
+                                    </div>
+                                </div>
+                                <div class="error" id="err_rc_customer_regno"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Demail" class="control-label search-form-label" style="padding-top: 25px;"><strong> From </strong></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="Demail" class="control-label search-form-label">State</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select name="from_state" id="state" class=" form-control customize-form dstate">
+                                            <option value="">Select State</option>
+                                            <?php foreach ($stateList as $state) { ?>
+                                                <?php if (isset($dealerInfo)) { ?>
+                                                    <option value="<?= $state->state_id ?>" <?php if ($state->state_id == $dealerInfo[0]->state) {
+                                                                                                echo "selected=selected";
+                                                                                            } ?>><?= $state->state_name ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $state->state_id ?>"><?= $state->state_name ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="error" id="state_error"></div>
                             <?php echo form_error('state'); ?>
                         </div>
-                        
-                        <div class="col-md-6" style="margin-top: 20px;">
-                            <label for="Dname" class="customize-label">City*</label>
-                            <div class="row row-text-box">
-                                <div class="col-xs-12 mrg-all-0 sm-text-box">
-                                    <select name="city" id="city" class=" form-control customize-form dcity" >
-                                        <option value="">Select City</option>
-                                        <?php foreach ($cityList as $city) { ?>
-                                            <option value="<?php echo $city['city_id']; ?>" <?php if ($city['city_id'] == $dealerInfo[0]->city) {
-                                            echo "selected=selected";
-                                        } ?>><?php echo $city['city_name'] ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="Dname" class="customize-label">City</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select name="from_city" id="city" class=" form-control customize-form dcity">
+                                            <option value="">Select City</option>
+                                            <?php foreach ($cityList as $city) { ?>
+                                                <option value="<?php echo $city['city_id']; ?>" <?php if ($city['city_id'] == $dealerInfo[0]->city) {
+                                                                                                    echo "selected=selected";
+                                                                                                } ?>><?php echo $city['city_name'] ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="error" id="city_error"></div>
+                                <?php echo form_error('city'); ?>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="Demail" class="control-label search-form-label" style="padding-top: 25px;"><strong> To </strong></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="Demail" class="control-label search-form-label">State</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select name="to_state" id="to_state" class=" form-control customize-form dstate">
+                                            <option value="">Select State</option>
+                                            <?php foreach ($stateList as $state) { ?>
+                                                <?php if (isset($dealerInfo)) { ?>
+                                                    <option value="<?= $state->state_id ?>" <?php if ($state->state_id == $dealerInfo[0]->state) {
+                                                                                                echo "selected=selected";
+                                                                                            } ?>><?= $state->state_name ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $state->state_id ?>"><?= $state->state_name ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="error" id="city_error" ></div>
-                            <?php echo form_error('city'); ?>
+                            <div class="error" id="state_error"></div>
+                            <?php echo form_error('state'); ?>
                         </div>
-                    </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="Dname" class="customize-label">City</label>
+                                <div class="row row-text-box">
+                                    <div class="col-xs-12 mrg-all-0 sm-text-box">
+                                        <select name="to_city" id="to_city" class=" form-control customize-form dcity">
+                                            <option value="">Select City</option>
+                                            <?php foreach ($cityList as $city) { ?>
+                                                <option value="<?php echo $city['city_id']; ?>" <?php if ($city['city_id'] == $dealerInfo[0]->city) {
+                                                                                                    echo "selected=selected";
+                                                                                                } ?>><?php echo $city['city_name'] ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="error" id="city_error"></div>
+                                <?php echo form_error('city'); ?>
+                            </div>
+                        </div>
 
                         <input type="hidden" value="1" name="rc_details">
-                        <input type="hidden" value="<?= !empty($getRcDetail['customer_id']) ? $getRcDetail['customer_id'] : '' ?>" name="customerId">
-                        <input type="hidden" value="<?= !empty($getRcDetail['rcid']) ? $getRcDetail['rcid'] : '' ?>" name="rcid" id="rcid">
-                        <!--<input type="hidden" value="<?= !empty($getRcDetail['pending_from']) ? $getRcDetail['pending_from'] : '' ?>" name="pndingfrm" id="pndingfrm">
+                        <input type="hidden" value="<?php //!empty($getRcDetail['customer_id']) ? $getRcDetail['customer_id'] : '' 
+                                                    ?>" name="customerId">
+                        <input type="hidden" value="<?php //!empty($getRcDetail['rcid']) ? $getRcDetail['rcid'] : '' 
+                                                    ?>" name="rcid" id="rcid">
+                        <!--<input type="hidden" value="<?php //!empty($getRcDetail['pending_from']) ? $getRcDetail['pending_from'] : '' 
+                                                        ?>" name="pndingfrm" id="pndingfrm">
                             -->
                         <div class="col-md-12">
                             <div class="btn-sec-width">
@@ -175,25 +242,16 @@
                                 $stylec = 'display:none';
                                 $action = '';
                                 /* if((($rolemgmt[0]['edit_permission']=='0') || ($rolemgmt[0]['add_permission']=='0'))  || ($rolemgmt[0]['role_name']!='admin'))
-                                      {
+                                        {
                                           $stylesss  = 'display:none';
                                           $stylec = 'display:block';
                                           $action = base_url('uploadRcDocs/').base64_encode('RcId_'.$getRcDetail['rc_id']).'/transferred';
 
-                                      }*/
+                                        }*/
                                 ?>
-                                <?php if (!empty($getRcDetail['rc_status']) && $getRcDetail['rc_status'] != '3') { ?>
-                                    <button type="button" class="btn-continue saveCont" style="<?= $stylesss ?>" id="rcdetailButton">SAVE AND CONTINUE</button>
-                                <?php } else {
-                                    if (($getRcDetail['rc_status'] != '1') && ($getRcDetail['pending_from'] == '1')) {
-                                        $action = base_url('uploadRcDocs/') . base64_encode('RcId_' . $getRcDetail['rc_id']) . '/transferred';
-                                    } else {
-                                        $action = base_url('uploadRcDocs/') . base64_encode('RcId_' . $getRcDetail['rc_id']);
-                                    }
-                                    //$action = base_url('uploadRcDocs/').base64_encode('RcId_'.$getRcDetail['rc_id']).'/transferred';
-                                ?>
-                                    <button type="button" class="btn-continue saveCont" style="<?= $stylesss ?>" id="rcdetailcontinue" onclick="countinue('<?= $action ?>')">CONTINUE</button>
-                                <?php } ?>
+
+                                <button type="button" class="btn-continue saveCont" style="<?= $stylesss ?>" id="rcTransferDetailButton">SAVE AND CONTINUE</button>
+
                                 <a class="btn-continue" onclick="countinue('<?= $action ?>')" style="<?= $stylec ?>">CONTINUE</a>
                             </div>
                         </div>
@@ -337,58 +395,111 @@
         });
     });
 
-    var add_lead = 0;
-
-    function add_rc_transfer_lead() {
-        if (add_lead == 0) {
-            $(this).prop('disabled', true);
-            // var formdata = $('#add_rc_transfer_form').serialize();            
-            var form_data = new FormData(document.getElementById("add_rc_transfer_form"));            
-            $.ajax({
-                url: base_url + "RcCase/save_rctransfer_detail",
-                type: 'POST',
-                data: form_data,                
-                contentType: false,
-                cache: false,
-                processData:false,
-                success: function(data) {                    
-                    $('#add_rc_transfer_lead_msg').html(data);
-                    $(this).prop('disabled', false);
-                    if (data.trim() == '<span class="success">RC Added Successfully</span>') {
-                        //alert(data);
-                        setTimeout(function() {
-                            // $('.sell_form_reset').click();
-                            // $('.add_lead_cancel').click();
-                            window.location.reload();
-                        }, 3000);
-                    }
-                    add_lead = 0;
-                }
-            });
-        }
-        add_lead = 1;
-    }
-
     function numbersonly(e) {
         var unicode = e.charCode ? e.charCode : e.keyCode
-        if (unicode != 8)
-        { //if the key isn't the backspace key (which we should allow)
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
             if (unicode < 48 || unicode > 57) //if not a number
                 return false //disable key press
         }
     }
 
-    $('#state').on('change', function () {
+    $('#state').on('change', function() {
         var selected = $(this).val();
         $.ajax({
             type: 'POST',
-            url: base_url+"RcCase/getcities",
-            data: {stateId: selected},
+            url: base_url + "RcCase/getcities",
+            data: {
+                stateId: selected
+            },
             dataType: "html",
-            success: function (responseData) {
+            success: function(responseData) {
                 $('#city').html(responseData);
                 // $('#city')[0].sumo.reload();
             }
         });
     });
+
+    $('#to_state').on('change', function() {
+        var selected = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: base_url + "RcCase/getcities",
+            data: {
+                stateId: selected
+            },
+            dataType: "html",
+            success: function(responseData) {
+                $('#to_city').html(responseData);
+                // $('#city')[0].sumo.reload();
+            }
+        });
+    });
+
+    function rcTransferDetailErr() {
+        error_flag = false;
+        $('.error').html('');
+        var rc_customer_name = $('#add_rc_customer_name').val();
+        var rc_customer_mobile = $('#add_rc_customer_mobile').val();
+        var rc_customer_email = $('#add_rc_customer_email').val();
+        var rc_aadhar_number = $('#add_rc_aadhar_number').val();
+        var rc_customer_regno = $('#add_rc_customer_regno').val();
+        var assigned_on = $('#assigned_on').val();
+
+        if (rc_customer_name == '') {
+            $('#err_rc_customer_name').html('Enter Customer Name.');
+            error_flag = true;
+        }
+        if (rc_customer_mobile == '') {
+            $('#err_rc_customer_mobile').html('Enter Contact Number.');
+            error_flag = true;
+        }
+        if (rc_customer_email == '') {
+            $('#err_rc_customer_email').html('Enter email Name.');
+            error_flag = true;
+        }
+        if (rc_aadhar_number == '') {
+            $('#err_rc_aadhar_num').html('Enter Aadhar Number.');
+            error_flag = true;
+        }
+        if (rc_customer_regno == '') {
+            $('#err_rc_customer_regno').html('Enter RC Number.');
+            error_flag = true;
+        }
+        return error_flag;
+    }
+
+    $('#rcTransferDetailButton').click(function() {
+        var formData = $('#rc_detail').serialize();
+        var err = rcTransferDetailErr();
+        if (err) {
+            $('.error').attr('style', 'display:block');
+            return err;
+        }
+        saveRcTransferInfo(formData);
+    });
+
+    function saveRcTransferInfo(formData) {
+        // console.log('2123564456');
+        // return false;
+        $.ajax({
+            type: "POST",
+            // url: base_url + "RcCase/saveUpdateRcData",
+            url: base_url + "RcCase/saveRcInfo",
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == 'True') {
+                    snakbarAlert(response.message);
+                    $('.loaderClas').attr('style', 'display:block;');
+                    setTimeout(function() {
+                        window.location.href = response.Action;
+                    }, 2500);
+                    return true;
+                } else {
+                    snakbarAlert(data.message);
+                    return false;
+                }
+            }
+        });
+    }
 </script>

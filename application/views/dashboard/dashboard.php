@@ -1,3 +1,10 @@
+<?php //echo "<PRE>";print_r($getRcDetail);
+$urlExplode = explode('/', current_url());
+	$url = !empty($urlExplode[4]) ? ($urlExplode[4]) : '';
+	$urls =  !empty($urlExplode[5]) ? ($urlExplode[5]) : '';
+
+?>
+
 <div id="content">
     <div id="left">
         <div class="left-menu" id="sidebar">
@@ -289,7 +296,6 @@
                 $amount_trend_title = "Disbursed Amount";
             else
                 $amount_trend_title = "OD Amount";
-
             ?>
             <div class="navbar navbar-default" role="navigation">
                 <div class="navbar-collapse collapse sidebar-navbar-collapse pad-all-0">
@@ -324,15 +330,10 @@
                     <div id="payment_stock_div" class="">
                         <div class="col-lg-12 col-md-12 mrgBatM clearfix pad-R15 pad-L15" id="topSection">
                             <h1 class="col-black-t">Pending Work</h1>
-                            <?php
-                            // echo current_url();
-                            // exit;
-                            // if(){
-                            ?>
-                            <p class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');" data-toggle="modal" data-target="#model-add-rc-transfer-case">ADD RC Case</a></p>
-                            <p class="pull-right"><a class="btn btn-success font-14" href="<?php echo base_url(); ?>">ADD RC Case</a></p>
-                            <?php //} 
-                            ?>
+                            <?php if($url == 'dashboard' && $urls == '10') { ?>
+                                <p class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');" data-toggle="modal" data-target="#model-add-rc-transfer-case">ADD RC Case</a></p>
+                                <p class="pull-right"><a class="btn btn-success font-14" href="<?php echo base_url('addRcCase'); ?>" target="_blank">ADD RC Case</a></p>
+                            <?php } ?>
 
                             <div class="col-md-12">
                                 <?php if (!empty($progress_card)) { ?>

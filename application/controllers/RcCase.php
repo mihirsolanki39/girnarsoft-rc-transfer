@@ -144,6 +144,7 @@ class RcCase extends MY_Controller
         $data['pageType']       = 'rcdetail';
         $this->loadViews("RcCase/upload_rc_doc_frame", $data);
     }
+    
     public function logindoc()
     {
         $data = [];
@@ -228,7 +229,8 @@ class RcCase extends MY_Controller
         // echo base_url() . 'upload_rc_doc/';
         // exit;
 
-        $arr = $this->uri->segment(3);
+        $arr = $this->uri->segment(3);        
+
         $ar  = explode('-', $arr);
         $data = [];
         $file_name_key              = key($_FILES);
@@ -252,7 +254,7 @@ class RcCase extends MY_Controller
             // exit;
             $error  = array('Invalid Request!');
             echo $result = array('error' => $error, 'status' => 400);
-            exit;            
+            exit;
         } else {
             // echo '1231';
             // exit;
@@ -264,7 +266,8 @@ class RcCase extends MY_Controller
             $data['doc_type'] = '4';
             if (!empty($ar['2'])) {
                 $data['doc_type'] = '5';
-            }
+            }          
+
             $result = $this->Crm_upload_docs_list->insertLoginDocs($data);
             echo trim($result);
             exit;
@@ -461,7 +464,7 @@ class RcCase extends MY_Controller
     }
 
     public function saveLoginDocs()
-    {   
+    {
         // echo '<pre>';
         // print_r($this->input->post());
         // exit;
@@ -836,9 +839,7 @@ class RcCase extends MY_Controller
             exit;
         } else {
             /*if(!empty($imggg))
-            {
-
-               
+            {              
                 foreach ($imggg as $k => $v) {
                     if(!empty($v['tagid'])){
                      $ids[] = $v['tagid'];
@@ -993,6 +994,7 @@ class RcCase extends MY_Controller
         echo $datas = $this->load->view('RcCase/ajax_getrtocaselist', $data, true);
         exit;
     }
+
     function random_strings($length_of_string)
     {
         $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -1054,9 +1056,9 @@ class RcCase extends MY_Controller
         $option= "<option value='' >Select City</option>";
         foreach ($result as $cityKey => $cityValue) {
              $option .="<option value='" . $cityValue['city_id'] . "' >" . $cityValue['city_name'] . "</option>";
-         }
-         echo $option;
-     }
+        }
+        echo $option;
+    }
 
 
     public function add_rc_transfer(){
@@ -1064,16 +1066,18 @@ class RcCase extends MY_Controller
         $imgListArr = [];
         $data['pageTitle']      = 'Add Rc Transfer Case';
         $data['pageType']       = 'rcCase';
-        $tagIds = '';
-        $loanCaseId = '';
-        $csId = '';
-        $editId      = !empty($rc_id) ? explode('_', base64_decode($rc_id)) : '';
-        $rcId        = !empty($editId) ? end($editId) : '';
-        $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcId);
-        $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RC Transfer');
-        $data['rolemgmt'] = $this->UserMgmtRole();
-        $getRcDetail['rto_charges'] = $this->IND_money_format(!empty($getRcDetail['rto_charges']) ? $getRcDetail['rto_charges'] : '');
-        $data['getRcDetail'] = $getRcDetail;
+        
+        // $tagIds = '';
+        // $loanCaseId = '';
+        // $csId = '';
+        // $editId      = !empty($rc_id) ? explode('_', base64_decode($rc_id)) : '';
+        // $rcId        = !empty($editId) ? end($editId) : '';
+        // $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcId);
+        // $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RC Transfer');
+        // $data['rolemgmt'] = $this->UserMgmtRole();
+        // $getRcDetail['rto_charges'] = $this->IND_money_format(!empty($getRcDetail['rto_charges']) ? $getRcDetail['rto_charges'] : '');
+        // $data['getRcDetail'] = $getRcDetail;
+        
         $data['stateList']  =  $this->state_list->getStateList();
         $data['userList']   =  $this->Crm_user->getEmployeeByTeam('Sales');
         //  echo "<pre>";print_r($data);die;
@@ -1081,7 +1085,7 @@ class RcCase extends MY_Controller
     }
 
 
-    public function save_rctransfer_detail() {
+    public function saveRcInfo() {
         $datapost = $this->input->post();
 
         // echo '<pre>';
@@ -1104,48 +1108,22 @@ class RcCase extends MY_Controller
         $insertData['rto_agent'] = !empty($datapost['rto_agent']) ? $datapost['rto_agent'] : '';
         $insertData['pending_from'] = !empty($datapost['pending_from']) ? $datapost['pending_from'] : '';
         $insertData['updated_by'] = !empty($datapost['updated_by']) ? $datapost['updated_by'] : '';
+        $insertData['aadhar_no'] = !empty($datapost['add_rc_aadhar_number']) ? $datapost['add_rc_aadhar_number'] : '';
+        $insertData['rto_type'] = !empty($datapost['rto_type']) ? $datapost['rto_type'] : '';
+        $insertData['from_state'] = !empty($datapost['from_state']) ? $datapost['from_state'] : '';
+        $insertData['to_state'] = !empty($datapost['to_state']) ? $datapost['to_state'] : '';
+        $insertData['from_city'] = !empty($datapost['from_city']) ? $datapost['from_city'] : '';
+        $insertData['to_city'] = !empty($datapost['to_city']) ? $datapost['to_city'] : '';
 
         $results = $this->Crm_rc->setRcTransferDetail($insertData);
 
-        // echo '<pre>';
-        // print_r($results);
-        // exit;
-
-        $arr = $this->uri->segment(3);
-        $ar  = explode('-', $arr);
-        $data = [];
-        $file_name_key              = key($_FILES);
-        $name = $_FILES['name'];
-        $config['upload_path']      = 'upload_rc_doc/';
-        $config['allowed_types']    = ['gif', 'png', 'jpg', 'jpeg', 'pdf', 'tif'];
-        $config['max_size']         = '8000';
-        $config['max_width']        = '7000';
-        $config['max_height']       = '7000';        
-        $config['encrypt_name']     = True;
-
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        if (!$this->upload->do_upload($file_name_key)) {
-            $error  = array('Invalid Request!');
-            echo $result = array('error' => $error, 'status' => 400);
-            exit;            
-        } else {            
-            $datas = $this->upload->data();
-            $data['doc_name'] = $datas['file_name'];
-            $data['doc_url'] = 'upload_rc_doc/' . $datas['file_name'];
-            $data['customer_id'] = $results['customer_id'];
-            $data['case_id'] = $results['customer_id'];
-            $data['doc_type'] = '4';
-            if (!empty($ar['2'])) {
-                $data['doc_type'] = '5';
-            }
-            $result = $this->Crm_upload_docs_list->insertLoginDocs($data);
-            echo trim($result);
-            exit;            
+        if ($results['rc_status'] != '1') {
+            $resultData = array('status' => 'True', 'message' => 'Rc details Inserted Successfully', 'Action' =>  base_url() . 'rcUploadDoc/' . base64_encode('RcId_' . $results['rc_ids']));
+        }else{
+            $resultData = array('status' => 'True', 'message' => 'Rc details Inserted Successfully', 'Action' =>  base_url() . 'rcUploadDoc/' . base64_encode('RcId_' . $results['rc_ids']));
         }
-        if(!empty($results)){
-            echo '<span class="success">RC Added Successfully</span>'; die;
-        }
+        echo json_encode($resultData);
+        exit;
     }
 
     public function chkValidateRcCase($datapost) {
@@ -1185,4 +1163,107 @@ class RcCase extends MY_Controller
             die;
         }
     }
+
+    
+
+    public function rcTransferUploadDoc($rc_id){
+        $data = [];
+        $imgListArr = [];
+        $data['pageTitle']      = 'Add Rc Transfer Case';
+        $data['pageType']       = 'rcCase';
+        
+        $tagIds = '';
+        $loanCaseId = '';
+        $csId = '';
+        $editId      = !empty($rc_id) ? explode('_', base64_decode($rc_id)) : '';
+        $rcId        = !empty($editId) ? end($editId) : '';
+        $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcId);
+        $data['customer_id'] = $getRcDetail['customer_id'];
+        $data['rtoTeam'] = $this->Crm_user->getEmployeeByTeam('RC Transfer');
+        $data['rolemgmt'] = $this->UserMgmtRole();
+        $getRcDetail['rto_charges'] = $this->IND_money_format(!empty($getRcDetail['rto_charges']) ? $getRcDetail['rto_charges'] : '');
+        $data['getRcDetail'] = $getRcDetail;
+        
+        $data['stateList']  =  $this->state_list->getStateList();
+        $data['userList']   =  $this->Crm_user->getEmployeeByTeam('Sales');
+        //  echo "<pre>";print_r($data);die;
+        $this->loadViews('RcCase/add_rc_frame', $data);
+        // $this->loadViews('RcCase/add_new_rc_upload_doc', $data);
+    }
+
+
+    public function addRCLogindoc()
+    {
+        $data = [];
+        $imgListArr = [];
+        $tagIds = '';
+        $loanCaseId = '';
+        $csId = '';
+        $rcid = $this->input->post('rc_id');
+        $getRcDetail = $this->Crm_rc->getRcFullCarDetail($rcid);
+        $data['getRcDetail'] = $getRcDetail;
+        $data['rc_id'] = $getRcDetail['rcid'];
+        $data['rcId'] = $getRcDetail['rcid'];
+        $data['customer_id'] = $getRcDetail['customer_id'];
+        $data['rolemgmt'] = $this->UserMgmtRole();
+        $flag = 1;
+        //$csId = $data['rc_id'];
+        if (!empty($getRcDetail['loan_ref_id'])) {
+            $loanCaseId = $this->Crm_rc->getLoanDetailByRefId($getRcDetail['loan_ref_id']);
+            $csId = $loanCaseId['case_id'];
+            $data['rc_id'] = $loanCaseId['case_id'];
+            $flag = '';
+        }
+
+        $docList = $this->Crm_upload_docs_list->getDocList('', '4');
+        foreach ($docList as $key => $val) {
+            $uploadDocList[$val['parent_id']]['name'] = $val['parent_name'];
+            $uploadDocList[$val['parent_id']]['is_require'] = $val['is_require'];
+            //echo $data['CustomerInfo']['loan_for'].'-'.$val['id'];
+            $sublist = $this->Crm_upload_docs_list->getDocList($val['parent_id'], '4');
+            foreach ($sublist as $skey => $sval) {
+                $uploadDocList[$val['parent_id']]['subList'][$sval['id']]['name'] = $sval['name'];
+                $uploadDocList[$val['parent_id']]['subList'][$sval['id']]['sub_category_id'] = $sval['sub_category_id'];
+                $uploadDocList[$val['parent_id']]['subList'][$sval['id']]['is_require'] = $sval['is_require'];
+            }
+        }
+
+        $data['uploadDocList'] = (!empty($uploadDocList)) ? $uploadDocList : '';
+        $tagIdd = rtrim($tagIds, ',');
+
+        $data['pendencyDoc'] = $this->Crm_upload_docs_list->getPendencyDetail($data['rcId'], 4);
+        $imgListUpdated = $this->Crm_upload_docs_list->getImageList($data['customer_id'], '', '', '', '4', $data['rcId'], $flag);
+        if (!empty($imgListUpdated)) {
+            $i = 0;
+            foreach ($imgListUpdated as $imgK => $imgV) {
+                $name = '';
+                $bank_name = '';
+                $imgListArr[$i]['id']           =   $imgV['id'];
+                $imgListArr[$i]['doc_name']     =   $imgV['doc_name'];
+                $imgListArr[$i]['doc_url']      =   (($imgV['sent_to_aws'] == '1') ? AWS_PATH : UPLOAD_IMAGE_URL) . $imgV['doc_url'];
+                $imgListArr[$i]['doc_type']     =   $imgV['doc_type'];
+                $imgListArr[$i]['customer_id']  =   $imgV['customer_id'];
+                $imgListArr[$i]['case_id']      =   $imgV['case_id'];
+                $imgListArr[$i]['status']       =   $imgV['status'];
+                $imgListArr[$i]['created_on']   =   $imgV['created_on'];
+                $imgListArr[$i]['updated_on']   =   $imgV['updated_on'];
+                $imgListArr[$i]['tag_id']       =   $imgV['parent_tag_id'];
+                $imgListArr[$i]['sub_id']       =   $imgV['sub_id'];
+                $imgListArr[$i]['image_id']     =   $imgV['image_id'];
+                $imgListArr[$i]['imgID']        =   $imgV['imgID'];
+                $imgListArr[$i]['bank_id']      =   $imgV['bank_id'];
+                $imgListArr[$i]['name']         =   $imgV['name'];
+                $imgListArr[$i]['parent_id']    =   $imgV['parent_id'];
+                $imgListArr[$i]['err']          =   $imgV['err'];
+                $i++;
+            }
+        }
+        $data['imageList'] =  $imgListArr;
+        echo $datas = $this->load->view('RcCase/add_new_rc_upload_doc', $data, true);
+        exit;
+        //  $this->loadViews('RcCase/upload_rc_docs',$data);
+
+    }
+
+
 }

@@ -169,7 +169,12 @@ $route['orderListing/(:any)']          = "DeliveryOrder/orderListing/$1";
 $route['getpdf/(:any)/(:any)']  = 'DeliveryOrder/getpdf/$1/$1';
 $route['bankInfo']               = 'Finance/bankInfo';
 $route['bankInfo/(:any)']        = "Finance/bankInfo/$1";
+
 $route['addRcCase']              = "RcCase/add_rc_transfer";
+$route['rcUploadDoc']            = "RcCase/rcTransferUploadDoc";
+$route['rcUploadDoc/(:any)']     = "RcCase/rcTransferUploadDoc/$1";
+
+
 $route['rcListing']              = "RcCase/rcListing";
 $route['rcListing/(:any)']       = "RcCase/rcListing/$1";
 $route['rcDetail']          = "RcCase/rcDetail";

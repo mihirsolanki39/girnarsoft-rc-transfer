@@ -295,83 +295,75 @@ class Apitodo extends MY_Controller
     }
 
     public function addRcCaseTransfer($apikey) {
-        
         $requestParams = $this->input->post();
-
-        echo '<pre>';
-        print_r($_FILES);
+        // echo '<pre>';
+        // print_r($_FILES);
         // print_r($requestParams);
-        exit;
-
+        // exit;
         $this->load->library('form_validation');
         $this->form_validation->set_rules('customer_name', 'Name', 'required');
         $this->form_validation->set_rules('customer_email', 'Email', 'required');
         $this->form_validation->set_rules('customer_mobile', 'Mobile', 'required');
+        $this->form_validation->set_rules('aadhar_no', 'Aadhar Card', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $data = strip_tags($this->form_validation->error_string());
             $response = ['error' => '', 'message' => $data];   
             echo json_encode($response);
-        } else {
-            
-            $log_data = [
-                'customer_name'     => $requestParams['customer_name'],
-                'customer_mobile'   => $requestParams['customer_mobile'],
-                'customer_email'    => $requestParams['customer_email'],
-                'reg_no'            => $requestParams['reg_no'],
-                'status'            => '1',
-                'rc_status'         => '1',
+        } else {            
+            $rcListing = [
+                'customer_name'         => $requestParams['customer_name'],
+                'customer_mobile'       => $requestParams['customer_mobile'],
+                'customer_email'        => $requestParams['customer_email'],
+                'reg_no'                => $requestParams['reg_no'],
+                'status'                => '1',
+                'rc_status'             => '1',
+                'aadhar_no'             => $requestParams['aadhar_no'],
+                'rto_type'              => $requestParams['rto_type'],
+                'from_state'            => $requestParams['from_state'],
+                'to_state'              => $requestParams['to_state'],
+                'from_city'             => $requestParams['from_city'],
+                'to_city'               => $requestParams['to_city'],
+                'generated_date'        => $requestParams['generated_date'],
             ];
-            // $log_id = $this->Leadmodel->api_log($log_data);
-            // $response['ref_log_id'] = $log_id;
-            $results = $this->Crm_rc->setRcTransferDetail($log_data);
-            
 
-            foreach($_FILES as $key=>$val){
-                if(!$this->upload->do_upload($key)){
-                    $return[$key] = $this->upload->display_errors(); //store this in an array and return at the end. array structure is up to you
-                }else{
-                    $return[$key] = $this->upload->data(); //store this in an array and return at the end. array structure is up to you
-                }
-            }
-            
-            $arr = $this->uri->segment(3);
-            $ar  = explode('-', $arr);
-            $data = [];
-            $file_name_key              = key($_FILES);
-            $name = $_FILES['name'];
+            $results = $this->Crm_rc->setRcTransferDetail($rcListing);
+
+            $files = $_FILES;
             $config['upload_path']      = 'upload_rc_doc/';
             $config['allowed_types']    = ['gif', 'png', 'jpg', 'jpeg', 'pdf', 'tif'];
             $config['max_size']         = '8000';
             $config['max_width']        = '7000';
-            $config['max_height']       = '7000';        
+            $config['max_height']       = '7000';
             $config['encrypt_name']     = True;
-
+            
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-            if (!$this->upload->do_upload($file_name_key)) {
-                $error  = array('Invalid Request!');
-                echo $result = array('error' => $error, 'status' => 400);
-                exit;            
-            } else {            
-                $datas = $this->upload->data();
-                $data['doc_name'] = $datas['file_name'];
-                $data['doc_url'] = 'upload_rc_doc/' . $datas['file_name'];
-                $data['customer_id'] = $results['customer_id'];
-                $data['case_id'] = $results['customer_id'];
-                $data['doc_type'] = '4';
-                if (!empty($ar['2'])) {
-                    $data['doc_type'] = '5';
+            
+            foreach ($files as $key => $image) {
+                // $fileName = key($image['name']);
+                if (!$this->upload->do_upload($key)) {
+                    $error = array('Invalid Request!');
+                    $result = array('error' => $error, 'status' => 400);
+                    echo json_encode($result);
+                } else {
+                    $datas = $this->upload->data();
+                    $data['doc_name'] = $datas['file_name'];
+                    $data['doc_url'] = 'upload_rc_doc/' . $datas['file_name'];
+                    $data['customer_id'] = $results['customer_id'];
+                    $data['case_id'] = $results['case'];
+                    $data['doc_type'] = '4';
+                    if (!empty($ar['2'])) {
+                        $data['doc_type'] = '5';
+                    }
+                    $result = $this->Crm_upload_docs_list->insertLoginDocs($data);
+                    // echo trim($result);
                 }
-                $result = $this->Crm_upload_docs_list->insertLoginDocs($data);
-                echo trim($result);
-                exit;            
             }
-
-            $response = ['status' => True, 'data' => $results];
-            // $this->Crm_rc->api_log(['response' => json_encode($response)], $log_id);
-            print(json_encode($response));
-            die;
+            if($result)
+                $response = array('status' => 'True', 'message' => 'Rc details added Successfully');
+                echo json_encode($response);
+            exit;
         }
     }
 }
