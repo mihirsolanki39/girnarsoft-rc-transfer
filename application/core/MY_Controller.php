@@ -18,7 +18,10 @@ class MY_Controller extends CI_Controller
         $data = [];
         $data['userinfo'] = $this->session->userdata('userinfo');
         $data['menu'] = $this->menu_data();
-        //print_r($data); exit;
+
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
         $this->load->view('includes/header.php', $headerInfo);
         $this->load->view('includes/menu.php', $data);
         if (isset($headerInfo['pageType']) && $headerInfo['pageType'] == 'loan' && $headerInfo['pageType'] != 'insurance') {
@@ -159,7 +162,14 @@ class MY_Controller extends CI_Controller
         $this->load->model('Crm_user');
         $this->load->model('Rolemodel');
         $userinfo = $this->session->userdata('userinfo');
-        $menu = $this->Crm_user->getHeaderByRole($userinfo['role_id'], '0');
+        $roleId = !empty($userinfo['role_ids']) ? $userinfo['role_ids'] : $userinfo['role_id'];
+        // echo '<pre>';
+        // print_r($userinfo);
+        $menu = $this->Crm_user->getHeaderByRole($roleId, '0');
+        // echo '<pre>';
+        // print_r($menu);
+        // exit;
+        
         $i = 0;
         if (!empty($menu)) {
             foreach ($menu as $key => $value) {

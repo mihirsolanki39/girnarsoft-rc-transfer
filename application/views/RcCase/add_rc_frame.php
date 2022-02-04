@@ -1,3 +1,10 @@
+<?php //echo "<PRE>";print_r($getRcDetail);
+	// $urlExplode = explode('/', current_url());
+	// $url = !empty($urlExplode[4]) ? ($urlExplode[4]) : '';
+	// $urls =  !empty($urlExplode[5]) ? ($urlExplode[5]) : '';
+
+?>
+
 <link href="<?php echo base_url(); ?>assets/css/imageviewer.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/css/common_new.css" rel="stylesheet">
@@ -45,7 +52,7 @@
   							</div>
   						</div>
   						<input type="hidden" name="case_id" value="<?= (!empty($rcId)) ? $rcId : '' ?>" id="case_id">
-  						<input type="hidden" name="rc_id" value="<?= (!empty($rcId)) ? $rcId : '' ?>" id="rc_id">
+  						<input type="hidden" name="rc_id" value="<?= (!empty($rcId)) ? $rcId : $getRcDetail['id'] ?>" id="rc_id">
   					</div>
 
   					<div class="col-md-12">

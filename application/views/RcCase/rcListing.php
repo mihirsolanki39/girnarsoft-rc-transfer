@@ -490,4 +490,3 @@
 		$(this).find('i').toggleClass("fa-angle-down fa-angle-up");
 	});
 </script>
-?>

@@ -1,7 +1,7 @@
 <?php //echo "<PRE>";print_r($getRcDetail);
 $urlExplode = explode('/', current_url());
-	$url = !empty($urlExplode[4]) ? ($urlExplode[4]) : '';
-	$urls =  !empty($urlExplode[5]) ? ($urlExplode[5]) : '';
+$url = !empty($urlExplode[4]) ? ($urlExplode[4]) : '';
+$urls =  !empty($urlExplode[5]) ? ($urlExplode[5]) : '';
 
 ?>
 
@@ -278,12 +278,14 @@ $urlExplode = explode('/', current_url());
                     height: 400px;
                     margin: 0 auto;
                 }
+
                 #add_rc_transfer_lead_msg .error {
                     font-size: 12px !important;
                     color: #900505 !important;
                     position: relative;
                     top: 0;
                 }
+
                 #add_rc_transfer_lead_msg .success {
                     font-size: 12px !important;
                     color: #449d44 !important;
@@ -330,10 +332,12 @@ $urlExplode = explode('/', current_url());
                     <div id="payment_stock_div" class="">
                         <div class="col-lg-12 col-md-12 mrgBatM clearfix pad-R15 pad-L15" id="topSection">
                             <h1 class="col-black-t">Pending Work</h1>
-                            <?php if($url == 'dashboard' && $urls == '10') { ?>
-                                <p class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');" data-toggle="modal" data-target="#model-add-rc-transfer-case">ADD RC Case</a></p>
-                                <p class="pull-right"><a class="btn btn-success font-14" href="<?php echo base_url('addRcCase'); ?>" target="_blank">ADD RC Case</a></p>
-                            <?php } ?>
+                            <?php //if($url == 'dashboard' && $urls == '10') { 
+                            ?>
+                            <!-- <p class="pull-right"><a class="btn btn-success font-14" onclick="$('.othercolors').hide();$('.add_seller_fuel_type').html('');" data-toggle="modal" data-target="#model-add-rc-transfer-case">ADD RC Case</a></p> -->
+                            <p class="pull-right"><a class="btn btn-success font-14" href="<?php echo base_url('addRcCase'); ?>" target="_blank">Add Rc Case</a></p>
+                            <?php //} 
+                            ?>
 
                             <div class="col-md-12">
                                 <?php if (!empty($progress_card)) { ?>
@@ -777,7 +781,7 @@ $urlExplode = explode('/', current_url());
                             <div class="clearfix mrg-T15"></div>
                             <div class="firstt">
                                 <div class="row mrg-all-0 mrg-B0 mrg-T0 appended-div2" style="border-top:0px solid #fff;padding:20px;background-color: #eee; border-radius: 4px;">
-                                    
+
                                     <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Reg No*</label>
                                         <div class="row row-text-box">
@@ -798,7 +802,7 @@ $urlExplode = explode('/', current_url());
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
 
                                     <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number</label>
@@ -834,7 +838,7 @@ $urlExplode = explode('/', current_url());
                                                 <input type="file" name="add_rc_vehicle_insurance" class="form-control">
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
 
                                     <div class="col-md-6  col-sm-6 pad-LR tabpading mrg-T10" style="margin-bottom: 20px;">
                                         <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Card Front</label>
@@ -866,7 +870,7 @@ $urlExplode = explode('/', current_url());
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
 
                 <?php
@@ -1250,15 +1254,15 @@ $urlExplode = explode('/', current_url());
         if (add_lead == 0) {
             $(this).prop('disabled', true);
             // var formdata = $('#add_rc_transfer_form').serialize();            
-            var form_data = new FormData(document.getElementById("add_rc_transfer_form"));            
+            var form_data = new FormData(document.getElementById("add_rc_transfer_form"));
             $.ajax({
                 url: base_url + "RcCase/save_rctransfer_detail",
                 type: 'POST',
-                data: form_data,                
+                data: form_data,
                 contentType: false,
                 cache: false,
-                processData:false,
-                success: function(data) {                    
+                processData: false,
+                success: function(data) {
                     $('#add_rc_transfer_lead_msg').html(data);
                     $(this).prop('disabled', false);
                     if (data.trim() == '<span class="success">RC Added Successfully</span>') {
@@ -1278,8 +1282,7 @@ $urlExplode = explode('/', current_url());
 
     function numbersonly(e) {
         var unicode = e.charCode ? e.charCode : e.keyCode
-        if (unicode != 8)
-        { //if the key isn't the backspace key (which we should allow)
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
             if (unicode < 48 || unicode > 57) //if not a number
                 return false //disable key press
         }

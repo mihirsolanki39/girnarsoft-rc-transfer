@@ -1,9 +1,10 @@
 <?php
-$stylesss = 'display:block';
-if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission'] == '0'))  || ($rolemgmt[0]['role_name'] != 'admin')) {
-	//$stylesss  = 'display:none';
-}
+	$stylesss = 'display:block';
+	if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission'] == '0'))  || ($rolemgmt[0]['role_name'] != 'admin')) {
+		//$stylesss  = 'display:none';
+	}
 ?>
+
 <div class="sec-card">
 	<ul class="nav nav-tabs nav-uptag" role="tablist">
 		<li role="presentation" class="active"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab" onclick="login()" id="uploadimage">UPLOAD</a></li>
@@ -34,7 +35,7 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 						foreach ($imageList as $ikey => $ival) {
 							if (!empty($ival['sub_id'])) {
 								$tagId[$ival['sub_id']][] = $ival['sub_id'];
-							} 
+							}
 					?>
 							<div class="dz-preview dz-image-preview">
 								<div class="dz-image">
@@ -179,7 +180,7 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $i ?>" id="doct_<?= $key ?>" aria-expanded="true">
 													<?= $val['name'] ?> <?= $req ?>
 													<span class="tick" id="tick_<?= $key ?>" <?php echo ((!empty($style[$key]) && empty($error[$key])) ? $style[$key] : '');
-																							?>>
+																								?>>
 														<img src="<?= base_url() ?>assets/images/tick-green.svg" alt="Doc Uploaded">
 													</span>
 													<span class="error" id="err_<?= $key ?>" <?= (!empty($error[$key]) ? $error[$key] : '') ?>>
@@ -1066,7 +1067,7 @@ if ((($rolemgmt[0]['edit_permission'] == '0') || ($rolemgmt[0]['add_permission']
 					var rc_id = $("#rc_id").val();
 					$.ajax({
 						type: 'POST',
-						url: "<?php echo base_url(); ?>" + "RcCase/saveLoginDocs/",
+						url: "<?php echo base_url(); ?>" + "RcCase/saveRcCaseLoginDocs/",
 						data: {
 							customer_id: customer_id,
 							case_id: case_id,

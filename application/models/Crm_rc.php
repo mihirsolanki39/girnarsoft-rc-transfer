@@ -111,6 +111,7 @@ class Crm_rc extends CI_Model
 
     public function getRcleadsQuery($requestParams, $perPageRecord = '', $pageNo = '', $startLimit = '')
     {
+        $employeeId = $this->session->userdata['userinfo']['id'];
         $lastdaydate = date('Y-m-d', strtotime(date('Y-m-d')) - (3600 * 24 * 7));
         $lastdaydate90 = date('Y-m-d', strtotime(date('Y-m-d')) - (3600 * 24 * 90));
         $this->db->select('lcc.customer_loan_id,rc.*,irc.*,ldd.delivery_date,mm.make as makeName,mm.model as modelName,mmp.make as parentmakeName,mmp.model as parentmodelName,mv.db_version as versionName,b.bank_name,u.name as rtoName,ue.name as salesexe,d.organization as dealername,lci.source_type,rpd.payment_rnd_id,rpd.id as rcpayid,rpd.amount as rc_amt,rpd.payment_mode as rc_pay_mode,rpd.paydates,rpd.payment_banks as paybnk,rpd.instrument_no,rpd.favouring,rpd.remark,rpd.instrument_date');
@@ -128,6 +129,10 @@ class Crm_rc extends CI_Model
         $this->db->join('crm_dealers as d', 'd.id=lci.dealer_id and d.status="1"', 'left');
         $this->db->join('crm_rc_payment_details as rpd', 'rpd.id=irc.payment_id', 'left');
         $this->db->where('rc.customer_id>', '0');
+        
+        if($employeeId > 1)
+        $this->db->where('irc.rto_agent', $employeeId);
+
         $this->InsGetLeadsFilter($requestParams);
         $this->db->group_by(array('rc.id'));
         $this->db->order_by('irc.updated_date', 'DESC');
@@ -416,7 +421,7 @@ class Crm_rc extends CI_Model
         $startLimit = ($pageNo - 1) * $perPageRecord;
         $requestParams['dealerID'] = $dealerId;
         $getleads = $this->getRcleadsQueryCount($requestParams, $perPageRecord, $pageNo, $startLimit);
-
+        
         $totalRecords = count($this->getRcleadsQueryCount($requestParams, $perPageRecord, $pageNo, $startLimit, '1'));
         $totalRecords = count($getleads);
         $leads = array();
@@ -476,6 +481,8 @@ class Crm_rc extends CI_Model
 
     public function getRcleadsQueryCount($requestParams, $perPageRecord, $pageNo, $startLimit)
     {
+        $employeeId = $this->session->userdata['userinfo']['id'];
+
         $lastdaydate = date('Y-m-d', strtotime(date('Y-m-d')) - (3600 * 24 * 7));
         $lastdaydate90 = date('Y-m-d', strtotime(date('Y-m-d')) - (3600 * 24 * 90));
         $this->db->select('rc.*,irc.*,mm.make as makeName,mm.model as modelName,mv.db_version as versionName,b.bank_name,u.name as rtoName');
@@ -489,6 +496,8 @@ class Crm_rc extends CI_Model
         $this->db->join('crm_bank_list as b', 'b.id=irc.bank_id_loan', 'left');
         $this->db->join('crm_user as u', 'u.id=irc.rto_agent and u.status="1"', 'left');
         $this->db->where('rc.customer_id>', '0');
+        if($employeeId > 1)
+            $this->db->where('irc.rto_agent', $employeeId);
         $this->InsGetLeadsFilter($requestParams);
         $this->db->group_by(array('rc.id'));
         $this->db->order_by('irc.updated_date', 'DESC');
@@ -635,17 +644,22 @@ class Crm_rc extends CI_Model
             $rcinfo['reg_year'] = !empty($params['reg_year']) ? $params['reg_year'] : '';
             $rcinfo['loan_case_type'] = !empty($params['loan_case_type']) ? $params['loan_case_type'] : '0';
             $rcinfo['bank_id_loan'] = !empty($params['bank_id_loan']) ? $params['bank_id_loan'] : '';
-            $rcinfo['pending_from'] = !empty($params['pending_from']) ? $params['pending_from'] : '';
+            $rcinfo['pending_from'] = !empty($params['pending_from']) ? $params['pending_from'] : '0';
             $rcinfo['loan_disbursement_date'] = !empty($params['loan_disbursement_date']) ? $params['loan_disbursement_date'] : '';
             $rcinfo['loan_delivery_date'] = !empty($params['loan_delivery_date']) ? $params['loan_delivery_date'] : '';
             $rcinfo['pending_from'] = !empty($params['buyer_case_id']) ? '2' : '1';
-            $rcinfo['status'] = !empty($params['status']) ? '1' : '';
+            $rcinfo['rc_detail_form_update'] = '0';
+            $rcinfo['upload_rc_docs'] = '0';
+            $rcinfo['rc_transferred_docs'] = '0';
+            $rcinfo['pending_from'] = '0';
+            $rcinfo['status'] = !empty($params['status']) ? '1' : '0';
             $rcinfo['created_date'] = $this->dateTime;
             $this->db->insert('crm_rc_info', $rcinfo);
             $rcInfoId = $this->db->insert_id();
         }
 
         if (!empty($rcId)) {
+
             $rcMapData['rc_id'] = !empty($rcId) ? $rcId : '';
             $rcMapData['customer_id'] = $rcDetail['customer_id'];
             $rcMapData['aadhar_no'] = !empty($params['aadhar_no']) ? $params['aadhar_no'] : '';
@@ -655,6 +669,16 @@ class Crm_rc extends CI_Model
             $rcMapData['to_state'] = !empty($params['to_state']) ? $params['to_state'] : '';
             $rcMapData['to_city'] = !empty($params['to_city']) ? $params['to_city'] : '';
             $rcMapData['generated_date'] = $this->dateTime;
+
+            if($rcMapData['from_city'] == $rcMapData['to_city']) {
+                $rto_type = 'same_state';
+            }elseif($rcMapData['from_city'] != $rcMapData['to_city']) {
+                $rto_type = 'different_state';
+            }else {
+                $rto_type = 'same_rto';
+            }
+
+            $rcMapData['rto_type'] = $rto_type;
             $this->db->insert('crm_rc_transfer_mapping', $rcMapData);
             $rcMapId = $this->db->insert_id();
         }
@@ -663,17 +687,4 @@ class Crm_rc extends CI_Model
         // }
         return $rcAllDeatails;
     }
-
-    // public function api_log($requestData, $id = '')
-    // {
-    //     if (empty($id)) {
-    //         $this->db->insert('crm_dc_sync_log', $requestData);
-    //         $lastId = $this->db->insert_id();
-    //     } else {
-    //         $this->db->where('id', $id);
-    //         $this->db->update('crm_dc_sync_log', $requestData);
-    //         $lastId = $id;
-    //     }
-    //     return $lastId;
-    // }
 }

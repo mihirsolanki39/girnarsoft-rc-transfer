@@ -148,7 +148,7 @@ if (!function_exists('p'))
     }
 
 }
-defined('SMS_URL')        OR define('SMS_URL',"http://www.gaadi.com/api_send_sms.php" );
+defined('SMS_URL') OR define('SMS_URL',"http://www.gaadi.com/api_send_sms.php" );
 
 defined('CENTRAL_CITY_LIST') OR define('CENTRAL_CITY_LIST',"city_list" );
 define('BANK_LOGO',"http://beta.dealercrm.gaadi.com/assets/images/banklogo/");

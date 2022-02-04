@@ -62,7 +62,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number *</label>
+                                <label for="exampleInputPassword1" class="control-label search-form-label">Aadhar Number </label>
                                 <div class="row row-text-box">
                                     <div class="col-xs-12 mrg-all-0 sm-text-box">
                                         <input type="text" placeholder="Enter Aadhar Number" name="add_rc_aadhar_number" id="add_rc_aadhar_number" class="form-control search-form-select-box">
@@ -457,10 +457,10 @@
             $('#err_rc_customer_email').html('Enter email Name.');
             error_flag = true;
         }
-        if (rc_aadhar_number == '') {
-            $('#err_rc_aadhar_num').html('Enter Aadhar Number.');
-            error_flag = true;
-        }
+        // if (rc_aadhar_number == '') {
+        //     $('#err_rc_aadhar_num').html('Enter Aadhar Number.');
+        //     error_flag = true;
+        // }
         if (rc_customer_regno == '') {
             $('#err_rc_customer_regno').html('Enter RC Number.');
             error_flag = true;
@@ -488,6 +488,14 @@
             data: formData,
             dataType: 'json',
             success: function(response) {
+                // console.log(response);
+                // return false;
+                error_flag = false;
+                $('.error').html('');
+                if(response == '<span>Please Enter a Valid Mobile Number</span>'){
+                    $('#err_rc_customer_mobile').html(response);
+                    error_flag = true;
+                }
                 if (response.status == 'True') {
                     snakbarAlert(response.message);
                     $('.loaderClas').attr('style', 'display:block;');

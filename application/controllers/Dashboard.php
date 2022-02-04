@@ -39,9 +39,18 @@ class Dashboard extends MY_Controller
 
     public function dashboardMain($type = "")
     {
+        // echo "<pre>";
+        // print_r($this->session->userdata['userinfo']);
+        // exit;
+
         $module = $this->Dashboard_model->getAllowedModule();
         $type = empty($type) ? $module[0] : $type;
         $team  = $this->session->userdata['userinfo']['team_id'];
+
+        if ($this->session->userdata['userinfo']['is_admin'] == 2) {
+            $module = $this->session->userdata['userinfo']['team_ids'];
+        }
+
         if ($this->session->userdata['userinfo']['is_admin'] == 1 || $team == 3 || $team == 8) {
             if ($type == "")
                 $type = 1;
@@ -51,10 +60,20 @@ class Dashboard extends MY_Controller
                 $module = array(1, 2, 4, 5, 6, 10);
             }
         }
+
+        // if ($type == ""){
+        //     $type = 1;
+        // }
+
+        // print_r($module) .'module';
+        // echo '<br>';
+        // echo $type .'type';
+        // exit;
+
         if ($team == 7 && $type == "") {
             $type = 5;
         }
-        if (in_array($type, $module) || $this->session->userdata['userinfo']['is_admin'] == '1') {
+        if (in_array($type, $module) || $this->session->userdata['userinfo']['is_admin'] == '1' || $this->session->userdata['userinfo']['is_admin'] == '2') {
             switch ($type) {
                 case "1":
                     $data = $this->getLoanDashboard($type);
@@ -88,20 +107,27 @@ class Dashboard extends MY_Controller
             $data['modules'] = $module;
             $data['pageTitle']      = 'Dashboard';
             $data['pageType']       = 'dashboard';
+
+            // echo '<pre>';
+            // print_r($data['role_id']);
+            // exit;
+
             if ($type != "") {
                 $this->loadViews("dashboard/dashboard", $data);
             } else {
                 $this->loadViews("dashboard/dashboard_1", $data);
             }
         } else
-            echo "Your are not allowed to access this page";
+            echo "Your are not allowed to access this page.";
     }
+
     public function getRCDashboard($type)
     {
         $employeeId = "";
         $data = array();
         $role_id = $this->session->userdata['userinfo']['role_id'];
         $employeeId = $this->session->userdata['userinfo']['id'];
+
         $team  = $this->session->userdata['userinfo']['team_id'];
         if ($this->session->userdata['userinfo']['is_admin'] == '1' || $role_id == 2) {
             $employeeId = "";
@@ -351,4 +377,3 @@ class Dashboard extends MY_Controller
         }
     }
 }
-

@@ -26,6 +26,7 @@ class Dashboard_model extends CI_Model
 		$result = $query->result_array();
 		return  $result;
 	}
+	
 	public function getPendingDocCount($empId = '')
 	{
 		$this->db->select("COUNT(distinct CASE WHEN  `icd`.`renew_flag` = '0' THEN icd.id ELSE null END ) document_pending");
@@ -491,20 +492,20 @@ class Dashboard_model extends CI_Model
 		$result = $query->result_array();
 		return $result;
 	}
-	public function getRCPending()
+	public function getRCPending($empId)
 	{
 		$this->db->select("COUNT(distinct CASE WHEN irc.rc_status IN('1') THEN irc.id ELSE null END ) pending_rc_cases, COUNT(distinct CASE WHEN irc.rc_status IN('2') THEN irc.id ELSE null END ) in_progress_rc");
 		$this->db->from('crm_rc_listing as rc');
 		$this->db->join('crm_rc_info as irc', 'irc.rc_id=rc.id', 'inner');
 		//$this->db->where('cd.status', '1');
 		if ($empId != '') {
-			//$this->db->where('irc.updated_by', $empId);
+			$this->db->where('irc.rto_agent', $empId);
 		}
 		$query = $this->db->get();
 		$result = $query->row_array();
 		return  $result;
 	}
-	public function getRCDelay()
+	public function getRCDelay($empId)
 	{
 		$new_date = date("Y-m-d", strtotime(date('Y-m-d') . " -15 days"));
 		$this->db->select("COUNT(distinct CASE WHEN irc.rc_status IN('1') AND Date(irc.created_date) < '" . $new_date . "' THEN irc.id ELSE null END ) pending_rc_cases, COUNT(distinct CASE WHEN irc.rc_status IN('2') AND Date(created_date) < '" . $new_date . "' THEN irc.id ELSE null END ) in_progress_rc");
@@ -512,7 +513,7 @@ class Dashboard_model extends CI_Model
 		$this->db->join('crm_rc_info as irc', 'irc.rc_id=rc.id', 'inner');
 		//$this->db->where('cd.status', '1');
 		if ($empId != '') {
-			//$this->db->where('irc.updated_by', $empId);
+			$this->db->where('irc.rto_agent', $empId);
 		}
 		$query = $this->db->get();
 		$result = $query->row_array();

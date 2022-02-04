@@ -42,7 +42,6 @@ $model = !empty($getRcDetail['parent_modelName']) ? $getRcDetail['parent_modelNa
 					<?php if (!empty($getRcDetail['reg_no'])) {
 						echo '<li>' . strtoupper($getRcDetail['reg_no']) . '</li>';
 					} ?>
-
 				</ul>
 			</div>
 			<div class="col-dc <?php echo (!empty($getRcDetail['rc_status'])) ? 'col-dc-width-auto' : ''; ?>">
@@ -79,16 +78,15 @@ $model = !empty($getRcDetail['parent_modelName']) ? $getRcDetail['parent_modelNa
 </section>
 <div class="row mrg-all-0">
 	<div class="col-crm-left sidenav sidebar-ins" id="sidebar">
-		<ul class="par-ul">           
+		<ul class="par-ul">
 
-			<li class="side_nav"><a class="sidenav-a active" href="<?php echo base_url('addRcCase/');  ?>">
-					<span class="img-type"></span> RC Details</a>
-			</li>
-
-			<li class="side_nav"><a class="sidenav-a active" href="<?php echo base_url('rcUploadDoc/')  //base64_encode('RcId_' . $getRcDetail["rcid"]); ?>">
-					<span class="img-type"></span> RC Document</a>
+			<li class="side_nav"><a href="<?= !empty($getRcDetail["rc_detail_form_update"]) ? base_url('javascript:void(0)') . base64_encode('RcId_' . $getRcDetail["rcid"]) : base_url('addRcCase/') ?>" class="sidenav-a <?= (!empty($getRcDetail["rc_detail_form_update"]) && ($getRcDetail["rc_detail_form_update"] == '1')) ? 'completed' : ((isset($url) && ($url == 'addRcCase')) ? 'active' : 'javascript:void(0)') ?>">
+				<span class="img-type"></span> RC Details</a>
 			</li>
 			
+			<li class="side_nav"><a href="<?= (!empty($getRcDetail["rc_detail_form_update"])) ? base_url('rcUploadDoc/') . base64_encode('RcId_' . $getRcDetail["rcid"]) : '#' ?>" class="sidenav-a  <?= (!empty($getRcDetail["upload_rc_docs"]) && $getRcDetail["upload_rc_docs"] == '1') ? 'completed' : '' ?> ">
+				<span class="img-type"></span> RC Document</a>
+			</li>
 			
 		</ul>
 	</div>

@@ -52,7 +52,17 @@ class Login extends MY_Controller
                 $this->session->set_flashdata('form_type', $this->input->post('form_type'));
                 $username = $this->input->post('username');
                 $upass = $this->input->post('upass');
+                $userdatas = array();
                 $userdatas = $this->Loginmodel->validate_login($username, $upass);
+                $userRoles  = $this->Loginmodel->getUserRole($userdatas['id']);
+                foreach ($userRoles as $key => $roles) {
+                    $userdatas['team_ids'][$key] = $roles['team_id'];
+                    $userdatas['role_ids'][$key] = $roles['role_id'];
+                }
+                // echo '<pre>';
+                // print_r($userdatas);
+                // exit;
+
             } else { //for otp login
                 $this->session->set_flashdata('form_type', '2');
                 $this->session->set_flashdata('mobile', $this->input->post('mobile'));
@@ -76,7 +86,7 @@ class Login extends MY_Controller
                     $this->session->set_flashdata('login_failed', 'User Not Active.');
                     redirect('login');
                 } else {
-                    //echo "<pre>";print_r($userdatas);die;
+                    // echo "<pre>";print_r($userdatas);die;
                     if ($userdatas['id'] == '1') {
                         $userdatas['is_admin'] = '1';
                     }
@@ -87,10 +97,10 @@ class Login extends MY_Controller
                     }
 
                     $userInfo = $this->session->set_userdata('userinfo', $userdatas);
-                    //echo "user login sucessfully.";exit;
-                    /*echo "<pre>";
-                                                    print_r($this->session->userdata['userinfo']);
-                                                    exit;*/
+                    // echo "user login sucessfully.";exit;
+                    // echo "<pre>";
+                    // print_r($this->session->userdata['userinfo']);
+                    // exit;
                     if (trim($this->session->userdata['userinfo']['role_name']) == 'Prelogin') {
                         return redirect('loanListing');
                     } else {
@@ -109,7 +119,6 @@ class Login extends MY_Controller
 
     public function sendOtp($mobile)
     {
-
         $userData = $this->Loginmodel->chkUserByMobile($mobile);
         $mobileCheck = $this->checkMobileNumber($userData, $mobile);
         if ($mobileCheck) {
@@ -181,7 +190,6 @@ class Login extends MY_Controller
         //echo "<pre>".$mobile;print_r($userOtpId);exit;
         //$this->options['sender']   ='GCLOUD';
         if (empty($mobile) || strlen($mobile) != '10') {
-
             return [
                 'status' => 'F',
                 'msg' => 'mobile number is not valid'

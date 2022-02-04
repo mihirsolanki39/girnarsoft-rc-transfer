@@ -261,7 +261,19 @@ class Crm_user extends CI_Model
 	}
 
 	public function getHeaderByRole($role, $flag = 0)
-	{
+	{	
+		// $roleId = !empty($userinfo['role_ids']) ? $userinfo['role_ids'] : $userinfo['role_id'];
+		// echo '<pre>';
+		// print_r($role);
+		// exit;
+
+		// if(is_array($role)){
+		// 	echo 1;
+		// }else{
+		// 	echo 0;
+		// }
+		// exit;
+
 		//$role ='3';
 		$this->db->select('*,h.id as headerid');
 		$this->db->from('crm_header_role as h');
@@ -270,7 +282,11 @@ class Crm_user extends CI_Model
 			$this->db->join('crm_role as r', 'r.id=hm.role_id', 'left');
 			//$this->db->where('r.status','1');
 			$this->db->where('hm.status', '1');
-			$this->db->where('hm.role_id', $role);
+			if(is_array($role)) {
+				$this->db->where_in('hm.role_id', $role );
+			}else{
+				$this->db->where('hm.role_id', $role);
+			}
 		}
 		$this->db->where('h.statue', '1');
 		if ($flag == 0) {
@@ -279,10 +295,11 @@ class Crm_user extends CI_Model
 			$this->db->where('h.parent_id', $flag);
 		}
 		$this->db->order_by('h.order_no asc');
+		$this->db->group_by('h.id');
 		$query = $this->db->get();
 		$result = $query->result_array();
-		//   echo $this->db->last_query(); die;
-		return  $result;
+		// echo $this->db->last_query(); die;
+		return $result;
 	}
 	public function getRightsByRole($role, $flag = 0)
 	{

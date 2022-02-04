@@ -130,9 +130,7 @@ class Apitodo extends MY_Controller
         $car_id = !empty($requestParams['id']) ? $requestParams['id'] : 0;
 
         // $cntUcData = $this->Cnt_used_car->getCntUsedCarData($car_id);
-
         //echo 'asdfsd';die;
-
 
         //$response = [];
         //        foreach ($cntUcData as $cntData)
@@ -275,18 +273,17 @@ class Apitodo extends MY_Controller
         if (!empty($data['image_urls'])) {
             $i = 1;
             foreach ($data['image_urls'] as $key => $url) {
-                $img_name             = trim(end(explode('/', $url['image_url'])));
+                $img_name = trim(end(explode('/', $url['image_url'])));
                 $imageData[$img_name] = [
                     "image_name" => $img_name,
-
                     'created_on' => date("Y-m-d H:i:s"),
                     "source"     => 'dealerCentral',
                     'image_url'  => trim($url['image_url']),
                     //'image_url'  => 'https://images10.gaadicdn.com/usedcar_image/original/'.$img_name,
                     'status'     => trim($url['status']),
                     'usedcar_id' => trim($data['usedcar_id']),
-                    'is_on_cdn' => trim($url['is_on_cdn']),
-                    'order'     => $i
+                    'is_on_cdn'  => trim($url['is_on_cdn']),
+                    'order'      => $i
                 ];
                 $i++;
             }
@@ -294,23 +291,63 @@ class Apitodo extends MY_Controller
         return $imageData;
     }
 
-    public function addRcCaseTransfer($apikey) {
+    function checkCityExist($str)
+    {
+        $this->db->select('city_id,state_id,city_name');
+        $this->db->where('city_name', $str);
+        $this->db->from('city_list');
+        $query = $this->db->get();
+        $result = $query->row_array();
+        // print_r($result);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+    public function addRcCaseTransfer($apikey)
+    {
         $requestParams = $this->input->post();
-        // echo '<pre>';
-        // print_r($_FILES);
-        // print_r($requestParams);
-        // exit;
+
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('customer_name', 'Name', 'required');
-        $this->form_validation->set_rules('customer_email', 'Email', 'required');
-        $this->form_validation->set_rules('customer_mobile', 'Mobile', 'required');
-        $this->form_validation->set_rules('aadhar_no', 'Aadhar Card', 'required');
+        $this->form_validation->set_rules('customer_name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('customer_email', 'Email', 'trim|required|valid_email|is_unique[crm_rc_info.customer_email]');
+        $this->form_validation->set_rules('customer_mobile', 'Mobile', 'trim|required|numeric|min_length[10]|max_length[10]');
+        $this->form_validation->set_rules('aadhar_no', 'Adhaar Number', 'trim|required|min_length[12]|max_length[12]');
+
+        $message = [];
+
+        if (!empty($this->input->post('from_city')) || !empty($this->input->post('to_city'))) {
+            if (empty($this->checkCityExist($this->input->post('from_city')))) {
+                $message['from_city'] = 'From city does not exists';
+            }
+            if (empty($this->checkCityExist($this->input->post('to_city')))) {
+                $message['to_city'] = 'From city does not exists';
+            }
+
+            $result = $this->checkCityExist($this->input->post('from_city'));
+            $result2 = $this->checkCityExist($this->input->post('to_city'));
+            if (empty($result) || empty($result2))
+                $response = [
+                    'status' => 500,
+                    'error' => true,
+                    'message' => $message
+                ];
+            echo json_encode($response);
+        }
 
         if ($this->form_validation->run() == FALSE) {
-            $data = strip_tags($this->form_validation->error_string());
-            $response = ['error' => '', 'message' => $data];   
+            // $data = strip_tags($this->form_validation->error_string());
+            $errors = $this->form_validation->error_array();
+            $response = [
+                'status' => 500,
+                'error' => true,
+                'message' => $errors
+            ];
             echo json_encode($response);
-        } else {            
+        } else {
             $rcListing = [
                 'customer_name'         => $requestParams['customer_name'],
                 'customer_mobile'       => $requestParams['customer_mobile'],
@@ -322,8 +359,8 @@ class Apitodo extends MY_Controller
                 'rto_type'              => $requestParams['rto_type'],
                 'from_state'            => $requestParams['from_state'],
                 'to_state'              => $requestParams['to_state'],
-                'from_city'             => $requestParams['from_city'],
-                'to_city'               => $requestParams['to_city'],
+                'from_city'             => $result['city_id'],
+                'to_city'               => $result2['city_id'],
                 'generated_date'        => $requestParams['generated_date'],
             ];
 
@@ -336,10 +373,10 @@ class Apitodo extends MY_Controller
             $config['max_width']        = '7000';
             $config['max_height']       = '7000';
             $config['encrypt_name']     = True;
-            
+
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-            
+
             foreach ($files as $key => $image) {
                 // $fileName = key($image['name']);
                 if (!$this->upload->do_upload($key)) {
@@ -360,9 +397,10 @@ class Apitodo extends MY_Controller
                     // echo trim($result);
                 }
             }
-            if($result)
-                $response = array('status' => 'True', 'message' => 'Rc details added Successfully');
-                echo json_encode($response);
+
+            if ($result)
+                $response = array('status' => 'True', 'case_id' => $results['case'], 'message' => 'Rc details added Successfully');
+            echo json_encode($response);
             exit;
         }
     }

@@ -110,7 +110,6 @@ class RcCase extends MY_Controller
         $this->load->helpers('history_helper');
         $usertype = '';
         if ($rc_id) {
-
             $historyData = $this->Crm_rc->getRchistory($rc_id, $total = '');
             if ($historyData) {
                 echo renderHistoryHTMLRCFinal($historyData);
@@ -120,7 +119,6 @@ class RcCase extends MY_Controller
                 exit;
             }
         } else {
-
             echo 'Sorry request not valid';
             exit;
         }
@@ -1088,13 +1086,10 @@ class RcCase extends MY_Controller
     public function saveRcInfo() {
         $datapost = $this->input->post();
 
-        // echo '<pre>';
-        // print_r($datapost);
-        // exit;
-
         $chkValidateRcCase= $this->chkValidateRcCase($datapost);
         if($chkValidateRcCase){
-            return $chkValidateRcCase;
+            echo json_encode($chkValidateRcCase);
+            // echo $chkValidateRcCase;
             exit;
         }
 
@@ -1129,11 +1124,11 @@ class RcCase extends MY_Controller
     public function chkValidateRcCase($datapost) {
         $name = addslashes(trim($datapost['add_rc_customer_name']));
         if ($name == '') {
-            echo '<span class="error">Please Enter Name</span>';
+            return '<span class="error">Please Enter Name</span>';
             die;
         }
         if (preg_match('/([^a-zA-Z.\s])/', $name)) {
-            echo '<span class="error">Special Characters or Digits are Not Allowed in Name</span>';
+            return '<span class="error">Special Characters or Digits are Not Allowed in Name</span>';
             die;
         }
         $email = !empty($datapost['add_rc_customer_email'])?addslashes(trim($datapost['add_rc_customer_email'])):'';
@@ -1141,27 +1136,27 @@ class RcCase extends MY_Controller
         $mobile = addslashes(trim($datapost['add_rc_customer_mobile']));
 
         if ($mobile == '' || strlen($mobile) < 10 || !is_numeric($mobile) || !($mobile[0] == '6' || $mobile[0] == '7' || $mobile[0] == '8' || $mobile[0] == '9')) {
-            echo '<span class="error">Please Enter a Valid Mobile Number</span>';
+            return '<span>Please Enter a Valid Mobile Number</span>';
             die;
         }
 
         if(!empty($email)) {
             if (preg_match('/([^a-zA-Z0-9._@])/', $email)) {
-                echo '<span class="error">Special Characters are Not Allowed in Email</span>';
+                return '<span class="error">Special Characters are Not Allowed in Email</span>';
                 die;
             }
             $emailArr = explode("@", $email);
             $emailArr2 = explode(".", $emailArr[1]);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) || is_numeric($emailArr[0]) || is_numeric($emailArr2[0]) || is_numeric($emailArr2[1])) {
-                echo '<span class="error">Please Enter Valid Email Address</span>';
+                return '<span class="error">Please Enter Valid Email Address</span>';
                 die;
             }
         }
 
-        if ($datapost['add_rc_customer_regno'] == '' ) {
-            echo '<span class="error">Please Enter Reg No</span>';
-            die;
-        }
+        // if ($datapost['add_rc_customer_regno'] == '' ) {
+        //     echo '<span class="error">Please Enter Reg No</span>';
+        //     die;
+        // }
     }
 
     
@@ -1262,8 +1257,94 @@ class RcCase extends MY_Controller
         echo $datas = $this->load->view('RcCase/add_new_rc_upload_doc', $data, true);
         exit;
         //  $this->loadViews('RcCase/upload_rc_docs',$data);
-
     }
+    
+    public function saveRcCaseLoginDocs()
+    {
+        // echo '<pre>';
+        // print_r($this->input->post());
+        // exit;
 
+        $err = [];
+        $bank = [];
+        $req_id = [];
+        $req = [];
+        $caseInfo = [];
+        $tagArr = [];
+        $req_sid = [];
+        $rc_id = $this->input->post('rc_id');
+        $doctype = $this->input->post('doctype');
+        $ec = '2';
+        if ($doctype == '4') {
+            $ec = '1';
+        }
+        $case_id = $this->input->post('case_id');
+        $customer_id = $this->input->post('customer_id');
+        $checkImg = $this->Crm_rc->getRcFullCarDetail($rc_id);
+        $imageList = $this->Crm_upload_docs_list->getImageList($customer_id, "", "", "", $doctype, $case_id);
+        $checkPendency = $this->Crm_upload_docs_list->getPendencyDetail($case_id, $doctype);
+        $docList = $this->Crm_upload_docs_list->getDocList('0', $doctype, '', $ec);
+        $data = [];
+        if (!empty($checkPendency)) {
+            foreach ($checkPendency as $pkey => $pval) {
+                $penTagId[] = $pval['pendency_doc_id'];
+            }
+        }
+        foreach ($imageList as $imgk => $imgv) {
+            if ($imgv['err'] == '1') {
+                $results = array('status' => 'False', 'message' => 'Please Resolve Incorrect Docs');
+                echo json_encode($results);
+                exit;
+            }
+            $tagArr[] = $imgv['tag_id'];
+            $bank[] = $imgv['bank_id'];
+        }
+        if (!empty($penTagId)) {
+            foreach ($penTagId as $pk => $pv) {
+                if (!empty($tagArr)) {
+                    array_push($tagArr, $pv);
+                } else {
+                    $tagArr[] = $pv;
+                }
+            }
+        }
+
+        foreach ($docList as $key => $val) {
+            if (($val['is_required'] == 0)) {
+                $sublist = $this->Crm_upload_docs_list->getDocList($val['parent_id'], $doctype, '', $ec);
+
+                foreach ($sublist as $skey => $sval) {
+                    $uploadDocList['name'] = $sval['name'];
+                    if ($sval['is_required'] > 0) {
+                        $req_sid[$val['parent_id']][] = $sval['sub_category_id'];
+                    }
+                }
+            }
+        }
+        // echo "<pre>";print_r($req_sid);die;
+        foreach ($req_sid as $rkey => $rval) {
+            foreach ($rval as $kr) {
+                if (!in_array($kr, $tagArr)) {
+                    $results = array('status' => 'False', 'message' => 'Please upload all required Doc');
+                    echo json_encode($results);
+                    exit;
+                }
+            }
+        }
+        $action = '2';
+
+        
+        $data['rc_transferred_docs'] = '1';
+        $urlaction =  base_url() . 'rcListing';
+    
+        $this->Crm_rc->updateRcInfoTable($data, $rc_id);
+        $this->addHistoryLog($rc_id, '', 'Rc Docs Uploaded', $this->session->userdata['userinfo']['id'], $action);
+        if ($action == '1') {
+            // $this->addRcTimeline($rc_id,'Rc Docs Uploaded',$this->session->userdata['userinfo']['id']);
+        }
+        $results = array('status' => 'True', 'message' => 'Docs uploaded Successfully', 'Action' => $urlaction);
+        echo json_encode($results);
+        exit;
+    }
 
 }
